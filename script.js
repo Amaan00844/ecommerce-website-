@@ -32,16 +32,16 @@ ScrollReveal().reveal(".header_image img", {
 
 ScrollReveal().reveal(".header_content div", {
     duration:1000,
-    delay:1000,
+    delay:700,
 });
 
 ScrollReveal().reveal(".header_content h1", {
     ...scrollRevealOption,
-    delay:3000,
+    delay:2000,
 });
 ScrollReveal().reveal(".header_content p", {
     ...scrollRevealOption,
-    delay:3500,
+    delay:2500,
 });
 
 ScrollReveal().reveal(".deals_card", {
