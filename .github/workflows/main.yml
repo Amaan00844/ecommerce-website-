@@ -1,0 +1,31 @@
+name: Deploy Agboedo Ecommerce Website to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Run workflow when pushing to main branch
+
+permissions:
+  contents: read
+  id-token: write
+  pages: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v2
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .  # Deploy everything in the repository
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
