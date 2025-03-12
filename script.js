@@ -37,11 +37,11 @@ ScrollReveal().reveal(".header_content div", {
 
 ScrollReveal().reveal(".header_content h1", {
     ...scrollRevealOption,
-    delay:1000,
+    delay:3000,
 });
 ScrollReveal().reveal(".header_content p", {
     ...scrollRevealOption,
-    delay:1500,
+    delay:3500,
 });
 
 ScrollReveal().reveal(".deals_card", {
