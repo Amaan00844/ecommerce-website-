@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>HomeTech Spares — Shopping Cart</title>
+</head>
+
+<body>
+    <nav>
+        <div class="nav_header">
+            <div class="nav_logo">
+                <a href="index.html" class="logo">HomeTech Spares</a>
+            </div>
+            <div class="nav_menu_btn" id="menu-btn">
+                <i class="ri-menu-fill"></i>
+            </div>
+        </div>
+
+        <ul class="nav_links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="service.html">Service</a></li>
+        </ul>
+        <div class="nav_search" id="nav-search">
+            <input type="text" placeholder="Search products" />
+            <span><i class="ri-search-2-line"></i></span>
+        </div>
+        <div class="nav_icons">
+            <a class="icon_btn" href="wishlist.html" title="Wishlist"><i class="ri-heart-3-line"></i><span class="count" id="wishlist-count">0</span></a>
+            <a class="icon_btn" href="cart.html" title="Cart"><i class="ri-shopping-cart-2-line"></i><span class="count" id="cart-count">0</span></a>
+        </div>
+    </nav>
+
+    <header class="section_container header_container_small">
+        <h1>Shopping Cart</h1>
+    </header>
+
+    <section class="section_container cart_container">
+        <!-- The container now uses product_grid for consistent styling -->
+        <div class="product_grid" id="cart-items-container">
+            <!-- Cart items will be dynamically inserted here by script.js -->
+        </div>
+
+        <!-- The order summary remains on the side -->
+        <div class="order_summary" id="order-summary-card">
+            <h3>Order Summary</h3>
+            <div class="summary_line">
+                <span>Subtotal</span>
+                <span id="subtotal">₹0.00</span>
+            </div>
+            <div class="summary_line">
+                <span>Shipping</span>
+                <span>FREE</span>
+            </div>
+            <div class="summary_total">
+                <span>Total</span>
+                <span id="total-cost">₹0.00</span>
+            </div>
+            <button class="checkout_btn">Proceed to Checkout</button>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="section_container footer_container">
+            <div class="footer_col">
+                <div class="footer_logo">
+                    <a href="index.html" class="logo">HomeTech Spares</a>
+                </div>
+                <p>
+                    Quality parts for every repair. Reliable service, transparent pricing, and fast delivery across India.
+                </p>
+            </div>
+            <!-- Your other footer columns go here -->
+        </div>
+        <div class="footer_bar">
+            <p>&copy; 2025 HomeTech Spares. All Rights Reserved. </p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

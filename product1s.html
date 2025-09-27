@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="product-detail.css" />
+    <title>Product Details - HomeTech Spares</title>
+</head>
+
+<body>
+    <nav>
+        </nav>
+
+    <main class="section_container">
+        <div class="product_detail_container">
+            <div class="product_gallery">
+                <div class="main_image_container">
+                    <img src="https://placehold.co/600x400?text=Loading..." alt="Main product image" id="mainImage">
+                </div>
+            </div>
+
+            <div class="product_info">
+                <h1 class="product_title" id="productTitle">Loading...</h1>
+                <p class="product_price" id="productPrice">...</p>
+                <p class="product_stock_status">
+                    <i class="ri-checkbox-circle-fill"></i> In Stock
+                </p>
+                
+                <div class="product_description">
+                    <p id="productDescription"></p>
+                </div>
+                
+                <div class="product_specs">
+                    <h4>Specifications:</h4>
+                    <ul>
+                        <li><strong>Category:</strong> <span id="productCategory"></span></li>
+                        <li><strong>Warranty:</strong> 1 Year Manufacturer Warranty</li>
+                    </ul>
+                </div>
+
+                <button class="add_to_cart_btn">
+                    <i class="ri-shopping-cart-2-line"></i> Add to Cart
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        </footer>
+
+    <script src="product-data.js"></script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. Get the product ID from the URL
+            const params = new URLSearchParams(window.location.search);
+            const productId = params.get("id");
+
+            // 2. Find the product in our data array
+            const product = products.find(p => p.id === productId);
+
+            // 3. Populate the page with the product data
+            if (product) {
+                document.title = `${product.name} - HomeTech Spares`;
+                document.getElementById("mainImage").src = product.image;
+                document.getElementById("mainImage").alt = product.name;
+                document.getElementById("productTitle").textContent = product.name;
+                document.getElementById("productPrice").textContent = product.price;
+                document.getElementById("productDescription").textContent = product.description;
+                document.getElementById("productCategory").textContent = product.category;
+            } else {
+                // If no product is found, show an error message
+                document.querySelector('.product_detail_container').innerHTML = "<h1>Product not found.</h1>";
+            }
+        });
+    </script>
+</body>
+</html>

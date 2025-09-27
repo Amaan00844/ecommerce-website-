@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Register - HomeTech Spares</title>
+</head>
+<body>
+    <nav>
+        <div class="nav_header">
+            <div class="nav_logo">
+                <a href="index.html" class="logo">HomeTech Spares</a>
+            </div>
+            <div class="nav_menu_btn" id="menu-btn">
+                <i class="ri-menu-fill"></i>
+            </div>
+        </div>
+        <ul class="nav_links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="service.html">Service</a></li>
+        </ul>
+        <div class="nav_search" id="nav-search">
+            <input type="text" placeholder="Search" />
+            <span><i class="ri-search-2-line"></i></span>
+        </div>
+        <div class="nav_icons">
+            <a class="icon_btn" href="wishlist.html" title="Wishlist"><i class="ri-heart-3-line"></i><span class="count" id="wishlist-count">0</span></a>
+            <a class="icon_btn" href="cart.html" title="Cart"><i class="ri-shopping-cart-2-line"></i><span class="count" id="cart-count">0</span></a>
+        </div>
+    </nav>
+
+    <main class="section_container registration_container">
+        <div class="form_card">
+            <h2 class="form_title">Create an Account</h2>
+            <form id="registrationForm">
+                <div class="input_group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required>
+                </div>
+                <div class="input_group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                </div>
+                <div class="input_group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+                </div>
+                <div class="input_group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Create a strong password" required>
+                </div>
+                <div class="input_group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                    <p id="passwordError" class="error_message"></p>
+                </div>
+                <button type="submit" class="register_btn">Register</button>
+            </form>
+            <p class="login_link">
+                Already have an account? <a href="login.html">Log In</a>
+            </p>
+        </div>
+    </main>
+
+    <script src="register.js"></script>
+</body>
+</html>

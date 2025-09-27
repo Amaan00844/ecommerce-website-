@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Request - HomeTech Spares</title>
+    
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for a clean, modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Use the Inter font family defined above */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- ========== Navigation Bar ========== -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-gray-800">HomeTech Spares</a>
+            <div class="hidden md:flex items-center space-x-6">
+                <!-- This link now points back to the homepage -->
+                <a href="index.html" class="text-gray-600 hover:text-blue-600 transition-colors">Home</a>
+                <a href="products.html" class="text-gray-600 hover:text-blue-600 transition-colors">Products</a>
+                <a href="about.html" class="text-gray-600 hover:text-blue-600 transition-colors">About</a>
+                <a href="contact.html" class="text-gray-600 hover:text-blue-600 transition-colors">Contact</a>
+                <a href="service.html" class="text-blue-600 font-semibold border-b-2 border-blue-600">Service</a>
+            </div>
+            <!-- Mobile Menu Button (optional, for visual consistency) -->
+            <button class="md:hidden focus:outline-none">
+                <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+    </header>
+
+    <!-- ========== Main Content: Service Request Form ========== -->
+    <main class="py-16 px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                <div class="p-8 sm:p-12">
+                    <h1 class="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-2">Need a Repair?</h1>
+                    <p class="text-center text-gray-500 mb-8">Fill out the form below, and we'll get back to you shortly.</p>
+
+                    <!-- The Service Request Form -->
+                    <form id="serviceForm" novalidate>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Full Name -->
+                            <div class="mb-2">
+                                <label for="fullName" class="block text-gray-700 font-medium mb-2">Full Name</label>
+                                <input type="text" id="fullName" name="fullName" placeholder="e.g., John Doe" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow">
+                            </div>
+                            <!-- Email Address -->
+                            <div class="mb-2">
+                                <label for="email" class="block text-gray-700 font-medium mb-2">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="e.g., john.doe@example.com" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow">
+                            </div>
+                            <!-- Contact Number -->
+                            <div class="mb-2">
+                                <label for="contactNumber" class="block text-gray-700 font-medium mb-2">Contact Number</label>
+                                <input type="tel" id="contactNumber" name="contactNumber" placeholder="e.g., (123) 456-7890" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow">
+                            </div>
+                             <!-- Appliance Name -->
+                            <div class="mb-2">
+                                <label for="applianceName" class="block text-gray-700 font-medium mb-2">Appliance Name</label>
+                                <input type="text" id="applianceName" name="applianceName" placeholder="e.g., AC, Refrigerator" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow">
+                            </div>
+                        </div>
+                        
+                        <!-- Address -->
+                        <div class="mb-4 mt-4">
+                            <label for="address" class="block text-gray-700 font-medium mb-2">Full Address</label>
+                            <input type="text" id="address" name="address" placeholder="e.g., 123 Tech Lane, Gadget City" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow">
+                        </div>
+
+                        <!-- Problem Description -->
+                        <div class="mb-6">
+                            <label for="problemDescription" class="block text-gray-700 font-medium mb-2">Problem Description</label>
+                            <textarea id="problemDescription" name="problemDescription" rows="4" placeholder="Describe the issue with your appliance..." required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow"></textarea>
+                        </div>
+                        
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="w-full sm:w-auto bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all transform hover:scale-105">
+                                Submit Service Request
+                            </button>
+                        </div>
+                    </form>
+                    
+                    <!-- Confirmation/Error Message Area -->
+                    <div id="formMessage" class="mt-6 text-center text-lg"></div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ========== Footer ========== -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-4 text-center">
+            <p>HomeTech Spares - Your trusted partner for appliance parts and services.</p>
+            <p class="text-sm mt-2 text-gray-400">&copy; 2025 HomeTech Spares. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- ========== JavaScript Logic ========== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const serviceForm = document.getElementById('serviceForm');
+            const formMessage = document.getElementById('formMessage');
+
+            serviceForm.addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent the default form submission
+
+                // --- 1. Get form data ---
+                const formData = new FormData(serviceForm);
+                const requestData = Object.fromEntries(formData.entries());
+                let allFieldsFilled = true;
+
+                // --- 2. Validate that all required fields are filled ---
+                for (const key in requestData) {
+                    // Trim whitespace and check if the field is empty
+                    if (requestData[key].trim() === '') {
+                        allFieldsFilled = false;
+                        break; // Exit the loop as soon as one empty field is found
+                    }
+                }
+
+                if (!allFieldsFilled) {
+                    // --- If validation fails ---
+                    formMessage.textContent = 'Please fill out all the required fields.';
+                    formMessage.className = 'mt-6 text-center text-lg text-red-600 font-medium';
+                } else {
+                    // --- If validation succeeds ---
+                    
+                    // --- 3. Store the details in localStorage ---
+                    try {
+                        // Retrieve existing requests or initialize an empty array
+                        const existingRequests = JSON.parse(localStorage.getItem('serviceRequests')) || [];
+                        
+                        // Add a timestamp to the new request for uniqueness
+                        requestData.submittedAt = new Date().toISOString();
+                        
+                        // Add the new request to the array
+                        existingRequests.push(requestData);
+                        
+                        // Save the updated array back to localStorage
+                        localStorage.setItem('serviceRequests', JSON.stringify(existingRequests));
+
+                        // --- 4. Show a confirmation message and reset the form ---
+                        formMessage.textContent = 'Your service request has been submitted. Our technician will contact you soon.';
+                        formMessage.className = 'mt-6 text-center text-lg text-green-600 font-medium';
+                        
+                        serviceForm.reset(); // Clear the form fields
+
+                    } catch (error) {
+                        // Handle potential localStorage errors (e.g., storage is full)
+                        console.error('Error saving to localStorage:', error);
+                        formMessage.textContent = 'Could not save your request. Please try again.';
+                        formMessage.className = 'mt-6 text-center text-lg text-red-600 font-medium';
+                    }
+                }
+                
+                // Optional: Clear the message after a few seconds
+                setTimeout(() => {
+                    formMessage.textContent = '';
+                    formMessage.className = 'mt-6 text-center text-lg';
+                }, 5000);
+            });
+        });
+    </script>
+
+</body>
+</html>
+
