@@ -1,0 +1,99 @@
+========================================
+  SETUP INSTRUCTIONS - HomeTech Spares
+========================================
+
+IMPORTANT: Follow these steps to fix the error!
+
+STEP 1: Copy Project to XAMPP
+==============================
+1. Copy the entire "Agboedo-Ecommerce-Website" folder
+2. Paste it into: C:\xampp\htdocs\
+3. Final path should be: C:\xampp\htdocs\Agboedo-Ecommerce-Website\
+
+STEP 2: Start XAMPP
+====================
+1. Open XAMPP Control Panel
+2. Click "Start" for Apache
+3. Click "Start" for MySQL
+4. Wait until both show "Running" in green
+
+STEP 3: Setup Database
+======================
+1. Open browser: http://localhost/phpmyadmin
+2. Click "New" on left sidebar
+3. Database name: ecommerce
+4. Click "Create"
+5. Select "ecommerce" database
+6. Click "Import" tab
+7. Click "Choose File"
+8. Navigate to: C:\xampp\htdocs\Agboedo-Ecommerce-Website\backend\setup_db.sql
+9. Click "Go" button at bottom
+10. Wait for success message
+
+STEP 4: Start Node.js Server (Optional - for login/register)
+=============================================================
+1. Open Command Prompt or PowerShell
+2. Navigate to auth folder:
+   cd C:\xampp\htdocs\Agboedo-Ecommerce-Website\backend\auth
+3. Install dependencies (first time only):
+   npm install
+4. Start server:
+   npm start
+5. You should see: "Server running on port 5001"
+
+STEP 5: Access Website
+=======================
+Open browser and go to:
+- Homepage: http://localhost/Agboedo-Ecommerce-Website/index.html
+- Admin Panel: http://localhost/Agboedo-Ecommerce-Website/admin.html
+
+Admin Login:
+- Email: admin@admin.com
+- Password: admin123
+
+========================================
+  TROUBLESHOOTING
+========================================
+
+Error: "Failed to place order"
+Solution: Make sure Apache is running in XAMPP
+
+Error: "Error saving product"
+Solution: Make sure MySQL is running in XAMPP and database is created
+
+Error: "Connection failed"
+Solution: Import the setup_db.sql file in phpMyAdmin
+
+Error: Admin login not working
+Solution: Start Node.js server (Step 4)
+
+========================================
+  QUICK TEST
+========================================
+
+1. Go to: http://localhost/Agboedo-Ecommerce-Website/backend/manage_products.php
+   - Should show: [] or list of products in JSON format
+   - If you see error, Apache is not running or project not in htdocs
+
+2. Go to: http://localhost/Agboedo-Ecommerce-Website/backend/analytics.php
+   - Should show: JSON with analytics data
+   - If error, database not setup correctly
+
+========================================
+  FILES UPDATED
+========================================
+
+✅ payment.html - Fixed backend URL
+✅ admin.js - Fixed all backend URLs
+✅ backend/manage_products.php - Fixed product saving
+✅ backend/checkout.php - Already working
+
+All backend calls now use absolute URLs:
+http://localhost/Agboedo-Ecommerce-Website/backend/...
+
+========================================
+
+IMPORTANT: The project MUST be in C:\xampp\htdocs\ 
+for the backend PHP files to work!
+
+========================================
