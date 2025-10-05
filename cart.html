@@ -1,90 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>HomeTech Spares — Shopping Cart</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="animations.css" />
+  <link rel="stylesheet" href="modern-ui.css" />
+  <title>HomeTech Spares — Cart</title>
+  <style>
+    .cart_container {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .cart_items {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .cart_product_card {
+      display: flex;
+      align-items: center;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 15px;
+      gap: 15px;
+    }
+    .cart_product_card img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .cart_product_card h4 {
+      margin: 0;
+      flex: 1;
+    }
+    .cart_product_card p {
+      margin: 5px 0;
+    }
+    .cart_item_actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .quantity_control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .quantity_control button {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      background: #eee;
+      cursor: pointer;
+    }
+    .quantity_text {
+      min-width: 20px;
+      text-align: center;
+    }
+    .empty_cart_message {
+      text-align: center;
+      padding: 50px;
+      font-size: 18px;
+      color: #666;
+    }
+    .order_summary_card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .order_summary_card h3 {
+      margin-top: 0;
+    }
+    .summary_row {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+    .checkout_btn {
+      background: #28a745;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      margin-top: 20px;
+    }
+    .checkout_btn:hover {
+      background: #218838;
+    }
+  </style>
 </head>
-
 <body>
-    <nav>
-        <div class="nav_header">
-            <div class="nav_logo">
-                <a href="index.html" class="logo">HomeTech Spares</a>
-            </div>
-            <div class="nav_menu_btn" id="menu-btn">
-                <i class="ri-menu-fill"></i>
-            </div>
-        </div>
+  <nav class="animate-fadeIn">
+    <div class="nav_header">
+      <div class="nav_logo">
+        <a href="index.html" class="logo animate-pulse">HomeTech Spares</a>
+      </div>
+      <div class="nav_menu_btn hover-grow" id="menu-btn">
+        <i class="ri-menu-fill"></i>
+      </div>
+    </div>
+    <ul class="nav_links" id="nav-links">
+      <li><a href="index.html" class="animate-slideInLeft delay-100">Home</a></li>
+      <li><a href="products.html" class="animate-slideInLeft delay-200">Products</a></li>
+      <li><a href="about.html" class="animate-slideInLeft delay-300">About</a></li>
+      <li><a href="contact.html" class="animate-slideInLeft delay-400">Contact</a></li>
+      <li><a href="service.html" class="animate-slideInLeft delay-500">Service</a></li>
+      <li><a href="register.html" class="btn-animate">Register</a></li>
+      <li><a href="admin.html" class="btn-animate">Admin Login</a></li>
+    </ul>
+    <div class="nav_icons">
+      <a class="icon_btn hover-grow" href="wishlist.html" title="Wishlist"><i class="ri-heart-3-line"></i><span class="count" id="wishlist-count">0</span></a>
+      <a class="icon_btn hover-grow" href="cart.html" title="Cart"><i class="ri-shopping-cart-2-line"></i><span class="count" id="cart-count">0</span></a>
+    </div>
+  </nav>
 
-        <ul class="nav_links" id="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="service.html">Service</a></li>
+  <section class="section_container product_container" style="background-color: white; padding: 20px; border-radius: 8px;">
+    <h2 class="section_header">Your Shopping Cart</h2>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <div id="cart-items-container" class="product_grid" style="flex: 2;">
+        <!-- Cart items will be dynamically inserted here -->
+      </div>
+      <div id="order-summary-card" class="order_summary_card" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background: #fff;">
+        <div>
+          <h3>Order Summary</h3>
+          <div class="summary_row">
+            <span>Subtotal:</span>
+            <span id="subtotal">₹0.00</span>
+          </div>
+          <div class="summary_row">
+            <span>Shipping:</span>
+            <span>Free</span>
+          </div>
+          <div class="summary_row">
+            <strong>Total:</strong>
+            <strong id="total-cost">₹0.00</strong>
+          </div>
+        </div>
+        <button class="checkout_btn" style="margin-top: 20px; width: 100%;">Proceed to Checkout</button>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .product_card.cart_product_card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: 0.3s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .product_card.cart_product_card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transform: translateY(-5px);
+    }
+    .cart_item_actions {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .quantity_control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .quantity_btn {
+      background: #007bff;
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .quantity_btn:hover {
+      background: #0056b3;
+    }
+    .quantity_text {
+      min-width: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+    .empty_cart_message {
+      text-align: center;
+      padding: 50px;
+      font-size: 18px;
+      color: #666;
+      width: 100%;
+    }
+    .order_summary_card h3 {
+      margin-top: 0;
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+    .summary_row {
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+      font-size: 1.1rem;
+    }
+    .checkout_btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: background-color 0.2s ease;
+    }
+    .checkout_btn:hover {
+      background: #0056b3;
+    }
+  </style>
+
+  <footer class="footer" id="contact">
+    <div class="section_container footer_container">
+      <div class="footer_col">
+        <div class="footer_logo">
+          <a href="#" class="logo">HomeTech Spares</a>
+        </div>
+        <p>Quality parts and expert repairs. Reliable service, transparent pricing, and fast delivery across India.</p>
+        <ul class="footer_socials">
+          <li><a href="#"><i class="ri-facebook-fill"></i></a></li>
+          <li><a href="#"><i class="ri-twitter-fill"></i></a></li>
+          <li><a href="#"><i class="ri-linkedin-fill"></i></a></li>
+          <li><a href="#"><i class="ri-pinterest-fill"></i></a></li>
         </ul>
-        <div class="nav_search" id="nav-search">
-            <input type="text" placeholder="Search products" />
-            <span><i class="ri-search-2-line"></i></span>
-        </div>
-        <div class="nav_icons">
-            <a class="icon_btn" href="wishlist.html" title="Wishlist"><i class="ri-heart-3-line"></i><span class="count" id="wishlist-count">0</span></a>
-            <a class="icon_btn" href="cart.html" title="Cart"><i class="ri-shopping-cart-2-line"></i><span class="count" id="cart-count">0</span></a>
-        </div>
-    </nav>
+      </div>
+      <div class="footer_col">
+        <h4>Catalog</h4>
+        <ul class="footer_links">
+          <li><a href="#product">AC Parts</a></li>
+          <li><a href="#product">Refrigerator Parts</a></li>
+          <li><a href="#product">Washing Machine Parts</a></li>
+          <li><a href="#product">Television Parts</a></li>
+          <li><a href="#product">Cooler & Heater Parts</a></li>
+        </ul>
+      </div>
+      <div class="footer_col">
+        <h4>Resources</h4>
+        <ul class="footer_links">
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Warranty & Returns</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+        </ul>
+      </div>
+      <div class="footer_col">
+        <h4>Contact</h4>
+        <ul class="footer_links">
+          <li><a href="#">Email: support@hometechspares.com</a></li>
+          <li><a href="#">Phone: +91 80 1234 5678</a></li>
+          <li><a href="#">Address: HomeTech Spares, Bengaluru, KA 560001</a></li>
+          <li><a href="#">Hours: Mon–Sat, 9:00 AM – 6:00 PM</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer_bar">
+      <p>&copy; 2025 HomeTech Spares. All Rights Reserved.</p>
+    </div>
+  </footer>
 
-    <header class="section_container header_container_small">
-        <h1>Shopping Cart</h1>
-    </header>
-
-    <section class="section_container cart_container">
-        <!-- The container now uses product_grid for consistent styling -->
-        <div class="product_grid" id="cart-items-container">
-            <!-- Cart items will be dynamically inserted here by script.js -->
-        </div>
-
-        <!-- The order summary remains on the side -->
-        <div class="order_summary" id="order-summary-card">
-            <h3>Order Summary</h3>
-            <div class="summary_line">
-                <span>Subtotal</span>
-                <span id="subtotal">₹0.00</span>
-            </div>
-            <div class="summary_line">
-                <span>Shipping</span>
-                <span>FREE</span>
-            </div>
-            <div class="summary_total">
-                <span>Total</span>
-                <span id="total-cost">₹0.00</span>
-            </div>
-            <button class="checkout_btn">Proceed to Checkout</button>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <div class="section_container footer_container">
-            <div class="footer_col">
-                <div class="footer_logo">
-                    <a href="index.html" class="logo">HomeTech Spares</a>
-                </div>
-                <p>
-                    Quality parts for every repair. Reliable service, transparent pricing, and fast delivery across India.
-                </p>
-            </div>
-            <!-- Your other footer columns go here -->
-        </div>
-        <div class="footer_bar">
-            <p>&copy; 2025 HomeTech Spares. All Rights Reserved. </p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="script.js"></script>
+  <script src="scroll-animations.js"></script>
 </body>
 </html>
-

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Payment - HomeTech Spares</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .payment-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+        }
+        .input_group {
+            margin-bottom: 1.5rem;
+        }
+        .input_group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+        .input_group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            font-family: inherit;
+        }
+        .input_group input:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        }
+        .payment_btn {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            background: linear-gradient(95deg, #0056b3, #007bff);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+        }
+        .payment_btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 123, 255, 0.6);
+        }
+        .confirmation_message {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--success);
+            margin-top: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="payment-container">
+        <h2>Payment Details</h2>
+        <form id="paymentForm">
+            <div class="input_group">
+                <label>Payment Method</label>
+                <label><input type="radio" name="paymentMethod" value="upi" checked> UPI</label>
+                <label><input type="radio" name="paymentMethod" value="card"> Credit/Debit Card</label>
+            </div>
+            <div class="input_group" id="upiGroup">
+                <label for="upiId">UPI ID</label>
+                <input type="text" id="upiId" name="upiId" placeholder="example@bank" />
+            </div>
+            <div id="cardGroup" style="display:none;">
+                <div class="input_group">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" name="cardNumber" maxlength="16" placeholder="1234 5678 9012 3456" />
+                </div>
+                <div class="input_group">
+                    <label for="expiry">Expiry Date (MM/YY)</label>
+                    <input type="text" id="expiry" name="expiry" maxlength="5" placeholder="MM/YY" />
+                </div>
+                <div class="input_group">
+                    <label for="cvv">CVV</label>
+                    <input type="password" id="cvv" name="cvv" maxlength="3" placeholder="123" />
+                </div>
+            </div>
+            <button type="submit" class="payment_btn">Send Payment Request</button>
+        </form>
+        <p class="confirmation_message" id="confirmationMessage">Payment successful! Your order is confirmed.</p>
+    </div>
+
+    <script>
+        const paymentForm = document.getElementById('paymentForm');
+        const upiGroup = document.getElementById('upiGroup');
+        const cardGroup = document.getElementById('cardGroup');
+        const confirmationMessage = document.getElementById('confirmationMessage');
+
+        paymentForm.paymentMethod.forEach(radio => {
+            radio.addEventListener('change', () => {
+                if (radio.value === 'upi' && radio.checked) {
+                    upiGroup.style.display = 'block';
+                    cardGroup.style.display = 'none';
+                } else if (radio.value === 'card' && radio.checked) {
+                    upiGroup.style.display = 'none';
+                    cardGroup.style.display = 'block';
+                }
+            });
+        });
+
+        paymentForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const paymentMethod = paymentForm.paymentMethod.value;
+            const upiId = document.getElementById('upiId').value.trim();
+            const cardNumber = document.getElementById('cardNumber').value.trim();
+            const expiry = document.getElementById('expiry').value.trim();
+            const cvv = document.getElementById('cvv').value.trim();
+
+            if (paymentMethod === 'upi' && !upiId) {
+                alert('Please enter your UPI ID.');
+                return;
+            }
+            if (paymentMethod === 'card' && (!cardNumber || !expiry || !cvv)) {
+                alert('Please fill in all card details.');
+                return;
+            }
+
+            // Retrieve shipping info and cart from localStorage
+            const shippingInfo = JSON.parse(localStorage.getItem('shippingInfo'));
+            const cart = JSON.parse(localStorage.getItem('cart'));
+
+            if (!shippingInfo || !cart || cart.length === 0) {
+                alert('Missing shipping information or cart is empty.');
+                return;
+            }
+
+            // Prepare order data for backend
+            const orderData = {
+                name: shippingInfo.name,
+                email: shippingInfo.email,
+                phone: shippingInfo.phone,
+                address: shippingInfo.address,
+                items: cart.map(item => ({
+                    name: item.name,
+                    price: item.price,
+                    quantity: item.quantity
+                }))
+            };
+
+            try {
+                // Send order to backend
+                const response = await fetch('http://localhost/Agboedo-Ecommerce-Website/backend/checkout.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Save order data to localStorage for confirmation page
+                    const confirmationData = {
+                        orderId: result.order_id || 'ORD' + Date.now(),
+                        fullName: shippingInfo.name,
+                        email: shippingInfo.email,
+                        phone: shippingInfo.phone,
+                        address: shippingInfo.address,
+                        paymentMethod: paymentMethod === 'upi' ? 'UPI' : 'Credit/Debit Card',
+                        items: cart,
+                        total: cart.reduce((acc, item) => acc + (item.price * item.quantity), 0)
+                    };
+                    localStorage.setItem('lastOrder', JSON.stringify(confirmationData));
+
+                    // Clear cart and shipping info
+                    localStorage.removeItem('cart');
+                    localStorage.removeItem('shippingInfo');
+
+                    // Update cart count
+                    const cartCountEl = document.getElementById('cart-count');
+                    if (cartCountEl) cartCountEl.textContent = '0';
+
+                    // Show confirmation message and redirect after delay
+                    confirmationMessage.style.display = 'block';
+                    setTimeout(() => {
+                        window.location.href = 'order-confirmation.html';
+                    }, 1500);
+                } else {
+                    alert('Order failed: ' + (result.message || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Error placing order:', error);
+                alert('Failed to place order. Please ensure the backend server is running.');
+            }
+        });
+    </script>
+</body>
+</html>

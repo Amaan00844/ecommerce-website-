@@ -1,89 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>Wishlist — HomeTech Spares</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="animations.css" />
+  <link rel="stylesheet" href="modern-ui.css" />
+  <title>HomeTech Spares — Wishlist</title>
+  <style>
+    .wishlist_container {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .wishlist_items {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .wishlist_product_card {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: 0.3s ease;
+    }
+    .wishlist_product_card img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+      margin: 10px 0;
+    }
+    .wishlist_product_card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .wishlist_actions {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+    .add_to_cart_btn, .remove_wishlist_btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .add_to_cart_btn:hover {
+      background: #0056b3;
+    }
+    .remove_wishlist_btn {
+      background: #dc3545;
+    }
+    .remove_wishlist_btn:hover {
+      background: #c82333;
+    }
+    .empty_wishlist_message {
+      text-align: center;
+      padding: 50px;
+      font-size: 18px;
+      color: #666;
+      grid-column: 1 / -1;
+    }
+  </style>
 </head>
 <body>
-    <nav>
-        <div class="nav_header">
-            <div class="nav_logo">
-                <a href="index.html" class="logo">HomeTech Spares</a>
-            </div>
-            <div class="nav_menu_btn" id="menu-btn">
-                <i class="ri-menu-fill"></i>
-            </div>
+  <nav class="animate-fadeIn">
+    <div class="nav_header">
+      <div class="nav_logo">
+        <a href="index.html" class="logo animate-pulse">HomeTech Spares</a>
+      </div>
+      <div class="nav_menu_btn hover-grow" id="menu-btn">
+        <i class="ri-menu-fill"></i>
+      </div>
+    </div>
+    <ul class="nav_links" id="nav-links">
+      <li><a href="index.html" class="animate-slideInLeft delay-100">Home</a></li>
+      <li><a href="products.html" class="animate-slideInLeft delay-200">Products</a></li>
+      <li><a href="about.html" class="animate-slideInLeft delay-300">About</a></li>
+      <li><a href="contact.html" class="animate-slideInLeft delay-400">Contact</a></li>
+      <li><a href="service.html" class="animate-slideInLeft delay-500">Service</a></li>
+      <li><a href="register.html" class="btn-animate">Register</a></li>
+      <li><a href="admin.html" class="btn-animate">Admin Login</a></li>
+    </ul>
+    <div class="nav_icons">
+      <a class="icon_btn hover-grow" href="wishlist.html" title="Wishlist"><i class="ri-heart-3-line"></i><span class="count" id="wishlist-count">0</span></a>
+      <a class="icon_btn hover-grow" href="cart.html" title="Cart"><i class="ri-shopping-cart-2-line"></i><span class="count" id="cart-count">0</span></a>
+    </div>
+  </nav>
+
+  <section class="section_container wishlist_container" style="background-color: white; padding: 20px; border-radius: 8px;">
+    <h2 class="section_header">Your Wishlist</h2>
+    <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+      <div id="wishlist-items-container" class="product_grid" style="flex: 2;">
+        <!-- Wishlist items will be dynamically inserted here -->
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="contact">
+    <div class="section_container footer_container">
+      <div class="footer_col">
+        <div class="footer_logo">
+          <a href="#" class="logo">HomeTech Spares</a>
         </div>
-        <ul class="nav_links" id="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
+        <p>Quality parts and expert repairs. Reliable service, transparent pricing, and fast delivery across India.</p>
+        <ul class="footer_socials">
+          <li><a href="#"><i class="ri-facebook-fill"></i></a></li>
+          <li><a href="#"><i class="ri-twitter-fill"></i></a></li>
+          <li><a href="#"><i class="ri-linkedin-fill"></i></a></li>
+          <li><a href="#"><i class="ri-pinterest-fill"></i></a></li>
         </ul>
-        <div class="nav_icons">
-            <a class="icon_btn" href="wishlist.html" title="Wishlist"><i class="ri-heart-3-line"></i><span class="count" id="wishlist-count">0</span></a>
-            <a class="icon_btn" href="cart.html" title="Cart"><i class="ri-shopping-cart-2-line"></i><span class="count" id="cart-count">0</span></a>
-        </div>
-    </nav>
+      </div>
+      <div class="footer_col">
+        <h4>Catalog</h4>
+        <ul class="footer_links">
+          <li><a href="#product">AC Parts</a></li>
+          <li><a href="#product">Refrigerator Parts</a></li>
+          <li><a href="#product">Washing Machine Parts</a></li>
+          <li><a href="#product">Television Parts</a></li>
+          <li><a href="#product">Cooler & Heater Parts</a></li>
+        </ul>
+      </div>
+      <div class="footer_col">
+        <h4>Resources</h4>
+        <ul class="footer_links">
+          <li><a href="#">Pricing</a></li>
+          <li><a href="#">FAQs</a></li>
+          <li><a href="#">Warranty & Returns</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+        </ul>
+      </div>
+      <div class="footer_col">
+        <h4>Contact</h4>
+        <ul class="footer_links">
+          <li><a href="#">Email: support@hometechspares.com</a></li>
+          <li><a href="#">Phone: +91 80 1234 5678</a></li>
+          <li><a href="#">Address: HomeTech Spares, Bengaluru, KA 560001</a></li>
+          <li><a href="#">Hours: Mon–Sat, 9:00 AM – 6:00 PM</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer_bar">
+      <p>&copy; 2025 HomeTech Spares. All Rights Reserved.</p>
+    </div>
+  </footer>
 
-    <section class="section_container">
-        <h2 class="section_header">Your Wishlist</h2>
-        <div id="wish-list" class="product_grid"></div>
-    </section>
-
-    <footer class="footer">
-        <div class="section_container footer_container">
-            <div class="footer_col">
-                <div class="footer_logo"><a href="index.html" class="logo">HomeTech Spares</a></div>
-                <p>Quality parts for every repair. Reliable service, transparent pricing, and fast delivery across India.</p>
-            </div>
-        </div>
-        <div class="footer_bar"><p>&copy; 2025 HomeTech Spares. All Rights Reserved.</p></div>
-    </footer>
-
-    <script src="script.js"></script>
-    <script>
-        const list = document.getElementById('wish-list');
-        let items = JSON.parse(localStorage.getItem('hts_wishlist')||'[]');
-        function render(){
-            list.innerHTML = '';
-            items.forEach((it, idx) => {
-                const card = document.createElement('div');
-                card.className = 'product_card';
-                card.innerHTML = `<h4>${it.name}</h4><p>${it.category || ''}</p><img src="${it.img}" alt="${it.name}">
-                <div style="display:flex;gap:.5rem;">
-                    <button class=\"add_btn\" data-add-cart="${idx}">Add to Cart</button>
-                    <button class=\"add_btn\" style=\"background:#6c757d;border-color:#6c757d;\" data-remove="${idx}">Remove</button>
-                </div>`;
-                list.appendChild(card);
-            });
-            updateCounts && updateCounts();
-        }
-        render();
-        list.addEventListener('click', (e)=>{
-            const rem = e.target.closest('[data-remove]');
-            const add = e.target.closest('[data-add-cart]');
-            if (rem){
-                const idx = Number(rem.getAttribute('data-remove'));
-                items.splice(idx,1);
-                localStorage.setItem('hts_wishlist', JSON.stringify(items));
-                render();
-            }
-            if (add){
-                const idx = Number(add.getAttribute('data-add-cart'));
-                const cart = JSON.parse(localStorage.getItem('hts_cart')||'[]');
-                cart.push(items[idx]);
-                localStorage.setItem('hts_cart', JSON.stringify(cart));
-                updateCounts && updateCounts();
-                add.textContent = 'Added';
-                setTimeout(()=>add.textContent='Add to Cart', 1200);
-            }
-        });
-    </script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="script.js"></script>
+  <script src="scroll-animations.js"></script>
 </body>
 </html>
-

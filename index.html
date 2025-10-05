@@ -2,89 +2,101 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="animations.css" />
+    <link rel="stylesheet" href="modern-ui.css" />
     <title>HomeTech Spares</title>
 </head>
 
 <body>
-    <nav>
-
+    <nav class="animate-fadeIn">
         <div class="nav_header">
             <div class="nav_logo">
-                <a href="index.html" class="logo">HomeTech Spares </a>
+                <a href="index.html" class="logo animate-pulse">HomeTech Spares </a>
             </div>
-            <div class="nav_menu_btn" id="menu-btn">
+            <div class="nav_menu_btn hover-grow" id="menu-btn">
                 <i class="ri-menu-fill"></i>
             </div>
         </div>
 
         <ul class="nav_links" id="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="service.html">Service</a></li>
-            <li><a href="register.html">Register</a></li>
+            <li><a href="index.html" class="animate-slideInLeft delay-100">Home</a></li>
+            <li><a href="products.html" class="animate-slideInLeft delay-200">Products</a></li>
+            <li><a href="about.html" class="animate-slideInLeft delay-300">About</a></li>
+            <li><a href="contact.html" class="animate-slideInLeft delay-400">Contact</a></li>
+            <li><a href="service.html" class="animate-slideInLeft delay-500">Service</a></li>
+            <li><a href="register.html" class="btn-animate">Register</a></li>
+            <li><a href="admin.html" class="btn-animate">Admin Login</a></li>
         </ul>
         <div class="nav_icons">
-            <a class="icon_btn" href="wishlist.html" title="Wishlist"><i class="ri-heart-3-line"></i><span class="count" id="wishlist-count">0</span></a>
-            <a class="icon_btn" href="cart.html" title="Cart"><i class="ri-shopping-cart-2-line"></i><span class="count" id="cart-count">0</span></a>
+            <a class="icon_btn hover-grow" href="wishlist.html" title="Wishlist"><i class="ri-heart-3-line"></i><span class="count" id="wishlist-count">0</span></a>
+            <a class="icon_btn hover-grow" href="cart.html" title="Cart"><i class="ri-shopping-cart-2-line"></i><span class="count" id="cart-count">0</span></a>
         </div>
     </nav>
 
-    <header class="section_container header_container" id="home">
-
-        <div class="header_image">
-            <img src="C:\HomeTech Spares Github\Agboedo-Ecommerce-Website\assets\banner.png">
+    <header class="section_container header_container" id="home" style="position: relative;">
+        <div class="header_image img-zoom" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+            <div class="swiper header-swiper" style="width: 100%; height: 100%;">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="assets/banner.png" alt="Banner 1" style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="assets/banner2.png" alt="Banner 2" style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="assets/product main.jpg" alt="Product Main" style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
-        <div class="header_content">
+        <div class="header_content animate-fadeIn" style="position: relative; z-index: 1;">
             <div>
-                <h1>Your Trusted Source for Appliance Spares & Expert Repairs</h1>
-                <p>
+                <h1 class="animate-slideInBottom delay-200">Your Trusted Source for Appliance Spares & Expert Repairs</h1>
+                <p class="animate-slideInBottom delay-300">
                     From quality parts for DIY projects to professional, on-site repair services, we've got you covered. Get your AC, refrigerator, washing machine, and more working like new.
                 </p>
+                <div class="header-buttons animate-slideInBottom delay-400">
+                    <a href="products.html" class="btn-animate">Shop Now</a>
+                    <a href="service.html" class="btn-animate">Book Service</a>
+                </div>
             </div>
         </div>
     </header>
 
     <section class="section_container deals_container">
-        <div class="deals_card">
-
-            <h2 class="section_header">
-                Featured Benefits
-            </h2>
+        <div class="deals_card reveal">
+            <h2 class="section_header">Featured Benefits</h2>
             <p>Shop genuine parts or book a professional repair service with confidence.</p>
         </div>
-        <div class="deals_card">
-            <span>
+        <div class="deals_card reveal">
+            <span class="animate-bounce">
                 <i class="ri-tools-line"></i>
             </span>
             <h4>Expert Repair Service</h4>
             <p>Our certified technicians can diagnose and fix your appliance problems quickly and reliably.</p>
         </div>
 
-        <div class="deals_card">
-            <span>
+        <div class="deals_card reveal">
+            <span class="animate-bounce delay-200">
                 <i class="ri-calendar-schedule-line"></i>
             </span>
             <h4>Fast Dispatch & Service</h4>
-            <p>
-                Parts ship within 24–48 hours and technicians are dispatched promptly.
-            </p>
+            <p>Parts ship within 24–48 hours and technicians are dispatched promptly.</p>
         </div>
 
-        <div class="deals_card">
-            <span>
+        <div class="deals_card reveal">
+            <span class="animate-bounce delay-400">
                 <i class="ri-money-dollar-circle-line"></i>
             </span>
             <h4>Best Value</h4>
             <p>Competitive pricing on both high-quality spare parts and professional repair services.</p>
         </div>
-
     </section>
 
     <section class="section_container about_container" id="about">
@@ -99,50 +111,37 @@
         </div>
         <div class="about_content">
             <div class="about_image">
-                <img src="C:\HomeTech Spares Github\Agboedo-Ecommerce-Website\assets\banner2.png" />
+                <img src="assets/banner2.png" />
             </div>
             <div class="about_grid">
                 <div class="about_card">
                     <h3>1.</h3>
                     <h4>Who we are</h4>
-                    <p>
-                        HomeTech Spares is your one-stop shop for appliance solutions, offering parts and expert repair services for ACs, refrigerators, washing machines, and more.
-                    </p>
+                    <p>HomeTech Spares is your one-stop shop for appliance solutions, offering parts and expert repair services for ACs, refrigerators, washing machines, and more.</p>
                 </div>
                 <div class="about_card">
                     <h3>2.</h3>
                     <h4>What we do</h4>
-                    <p>
-                        We stock OEM-quality parts for fast delivery and dispatch certified technicians to provide reliable, on-site repairs for your home appliances.
-                    </p>
+                    <p>We stock OEM-quality parts for fast delivery and dispatch certified technicians to provide reliable, on-site repairs for your home appliances.</p>
                 </div>
                 <div class="about_card">
                     <h3>3.</h3>
                     <h4>How we help</h4>
-                    <p>
-                        Whether you need the right part for a DIY fix or a complete repair service, our expert guidance and skilled technicians save you time and money.
-                    </p>
+                    <p>Whether you need the right part for a DIY fix or a complete repair service, our expert guidance and skilled technicians save you time and money.</p>
                 </div>
                 <div class="about_card">
                     <h3>4.</h3>
                     <h4>Our promise</h4>
-                    <p>
-                        We stand for reliability and transparent pricing in both our parts and services, ensuring your appliances get back to work quickly.
-                    </p>
+                    <p>We stand for reliability and transparent pricing in both our parts and services, ensuring your appliances get back to work quickly.</p>
                 </div>
             </div>
         </div>
-
     </section>
 
     <section class="section_container client_container">
         <div class="client_content">
-            <h2 class="section_header">
-                What our customers say
-            </h2>
-            <p class="section_description">
-                Testimonials Highlighting Our Commitment to Quality, Exceptional Service, and Customer Satisfaction
-            </p>
+            <h2 class="section_header">What our customers say</h2>
+            <p class="section_description">Testimonials Highlighting Our Commitment to Quality, Exceptional Service, and Customer Satisfaction</p>
 
             <div class="swiper">
                 <div class="swiper-wrapper">
@@ -150,9 +149,7 @@
                         <div class="client_card">
                             <img src="assets/user-1.jpg" alt="user" />
                             <div>
-                                <p>
-                                    "HomeTech Spares helped me find the exact refrigerator fan motor I needed. Quick delivery and fair pricing—highly recommended!"
-                                </p>
+                                <p>"HomeTech Spares helped me find the exact refrigerator fan motor I needed. Quick delivery and fair pricing—highly recommended!"</p>
                                 <h4>Chukwudi Obi</h4>
                                 <h5>Appliance Service Technician</h5>
                             </div>
@@ -163,9 +160,7 @@
                         <div class="client_card">
                             <img src="assets/user-2.jpg" alt="user" />
                             <div>
-                                <p>
-                                    "I fixed my washing machine with parts from HomeTech Spares. The compatibility info was spot on."
-                                </p>
+                                <p>"I fixed my washing machine with parts from HomeTech Spares. The compatibility info was spot on."</p>
                                 <h4>Amarachi Onyekachi</h4>
                                 <h5>Homeowner</h5>
                             </div>
@@ -176,13 +171,9 @@
                         <div class="client_card">
                             <img src="assets/user-3.jpg" alt="user" />
                             <div>
-                                <p>
-                                    "Great catalog and support. We source TV backlight strips and AC parts regularly from HomeTech Spares."
-                                </p>
+                                <p>"Great catalog and support. We source TV backlight strips and AC parts regularly from HomeTech Spares."</p>
                                 <h4>Ifeanyi Chinonso</h4>
-                                <h5>Electronics Store Owner
-                                    
-                                </h5>
+                                <h5>Electronics Store Owner</h5>
                             </div>
                         </div>
                     </div>
@@ -191,9 +182,7 @@
                         <div class="client_card">
                             <img src="assets/user-2.jpg" alt="user" />
                             <div>
-                                <p>
-                                    "Fast dispatch and genuine parts. My AC repairs finish days sooner now."
-                                </p>
+                                <p>"Fast dispatch and genuine parts. My AC repairs finish days sooner now."</p>
                                 <h4>Ravi Kumar</h4>
                                 <h5>HVAC Technician</h5>
                             </div>
@@ -204,9 +193,7 @@
                         <div class="client_card">
                             <img src="assets/user-1.jpg" alt="user" />
                             <div>
-                                <p>
-                                    "Clear specs and fair pricing—ideal for DIY repairs at home."
-                                </p>
+                                <p>"Clear specs and fair pricing—ideal for DIY repairs at home."</p>
                                 <h4>Neha Sharma</h4>
                                 <h5>DIY Enthusiast</h5>
                             </div>
@@ -217,19 +204,16 @@
                         <div class="client_card">
                             <img src="assets/user-3.jpg" alt="user" />
                             <div>
-                                <p>
-                                    "Excellent service. Got the right thermostat and door gasket in one go."
-                                </p>
+                                <p>"Excellent service. Got the right thermostat and door gasket in one go."</p>
                                 <h4>Prakash Mehta</h4>
                                 <h5>Appliance Retailer</h5>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
-
+        </div>
     </section>
 
     <footer class="footer" id="contact">
@@ -238,52 +222,41 @@
                 <div class="footer_logo">
                     <a href="#" class="logo">HomeTech Spares</a>
                 </div>
-                <p>
-                    Quality parts and expert repairs. Reliable service, transparent pricing, and fast delivery across India.
-                </p>
+                <p>Quality parts and expert repairs. Reliable service, transparent pricing, and fast delivery across India.</p>
                 <ul class="footer_socials">
-                    <li>
-                        <a href="#"><i class="ri-facebook-fill"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="ri-twitter-fill"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="ri-linkedin-fill"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="ri-pinterest-fill"></i></a>
-                    </li>
+                    <li><a href="#"><i class="ri-facebook-fill"></i></a></li>
+                    <li><a href="#"><i class="ri-twitter-fill"></i></a></li>
+                    <li><a href="#"><i class="ri-linkedin-fill"></i></a></li>
+                    <li><a href="#"><i class="ri-pinterest-fill"></i></a></li>
                 </ul>
-
             </div>
             <div class="footer_col">
                 <h4>Catalog</h4>
                 <ul class="footer_links">
-                <li><a href="#product">AC Parts</a></li>
-                <li><a href="#product">Refrigerator Parts</a></li>
-                <li><a href="#product">Washing Machine Parts</a></li>
-                <li><a href="#product">Television Parts</a></li>
-                <li><a href="#product">Cooler & Heater Parts</a></li>
+                    <li><a href="#product">AC Parts</a></li>
+                    <li><a href="#product">Refrigerator Parts</a></li>
+                    <li><a href="#product">Washing Machine Parts</a></li>
+                    <li><a href="#product">Television Parts</a></li>
+                    <li><a href="#product">Cooler & Heater Parts</a></li>
                 </ul>
             </div>
             <div class="footer_col">
                 <h4>Resources</h4>
                 <ul class="footer_links">
-                <li><a href="#">Pricing</a></li>
-                <li><a href="#">FAQs</a></li>
-                <li><a href="#">Warranty & Returns</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms & Conditions</a></li>
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Warranty & Returns</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
                 </ul>
             </div>
             <div class="footer_col">
                 <h4>Contact</h4>
                 <ul class="footer_links">
-                <li><a href="#">Email: support@hometechspares.com</a></li>
-                <li><a href="#">Phone: +91 80 1234 5678</a></li>
-                <li><a href="#">Address: HomeTech Spares, Bengaluru, KA 560001</a></li>
-                <li><a href="#">Hours: Mon–Sat, 9:00 AM – 6:00 PM</a></li>
+                    <li><a href="#">Email: support@hometechspares.com</a></li>
+                    <li><a href="#">Phone: +91 80 1234 5678</a></li>
+                    <li><a href="#">Address: HomeTech Spares, Bengaluru, KA 560001</a></li>
+                    <li><a href="#">Hours: Mon–Sat, 9:00 AM – 6:00 PM</a></li>
                 </ul>
             </div>
         </div>
@@ -295,6 +268,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="script.js"></script>
+    <script src="scroll-animations.js"></script>
 </body>
 
 </html>

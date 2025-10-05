@@ -1,0 +1,151 @@
+/* === STYLES FOR THE PRODUCT DETAIL PAGE === */
+
+/* Main container for the product layout */
+.product_detail_container {
+    display: grid;
+    /* Two-column layout on larger screens */
+    grid-template-columns: 1fr 1.25fr;
+    gap: 3rem; /* Increased gap for better spacing */
+    align-items: flex-start; /* Align content to the top */
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.07);
+}
+
+/* Left Column: Product Image Gallery */
+.product_gallery {
+    display: flex;
+    flex-direction: column;
+    position: sticky; /* Makes the image stay in view on scroll */
+    top: 20px;
+}
+
+.main_image_container img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1; /* Ensures a consistent square shape */
+    object-fit: contain; /* Keeps the entire product visible without distortion */
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+}
+
+/* Right Column: Product Information */
+.product_info {
+    display: flex;
+    flex-direction: column;
+}
+
+.product_title {
+    font-size: 2.25rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+}
+
+.product_price {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.product_stock_status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #28a745; /* Consistent green for "in stock" status */
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+.product_stock_status i {
+    font-size: 1.2rem;
+}
+
+.product_description {
+    color: var(--text-light);
+    line-height: 1.7; /* Increased line-height for readability */
+    margin-bottom: 1.5rem;
+}
+
+.product_specs {
+    background-color: var(--extra-light);
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+}
+
+.product_specs h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.product_specs ul {
+    list-style-type: none; /* From your main styles.css */
+    padding: 0;
+}
+
+.product_specs li {
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product_specs li strong {
+    color: var(--text-dark); /* Make labels stand out */
+    margin-right: 1rem;
+}
+
+/* Re-using and enhancing the 'add_btn' style for this page */
+.add_to_cart_btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--white);
+    background: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.add_to_cart_btn:hover {
+    background-color: #333; /* Darker shade consistent with your site */
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* === Responsive Design for Mobile === */
+@media (max-width: 768px) {
+    .product_detail_container {
+        grid-template-columns: 1fr; /* Stacks to a single column */
+        gap: 2rem;
+        padding: 1.5rem;
+    }
+
+    .product_gallery {
+        position: static; /* Remove sticky positioning on mobile */
+    }
+
+    .product_title {
+        font-size: 1.8rem;
+    }
+
+    .product_price {
+        font-size: 1.6rem;
+    }
+}

@@ -1,186 +1,333 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>HomeTech Spares — Products</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="animations.css" />
+  <link rel="stylesheet" href="modern-ui.css" />
+  <title>HomeTech Spares — Products</title>
+  <style>
+    .product_grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .product_card {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: 0.3s ease;
+    }
+    .product_card img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+      margin: 10px 0;
+    }
+    .product_card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .product_actions {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+    .view_btn, .add_btn {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .view_btn:hover, .add_btn:hover {
+      background: #0056b3;
+    }
+    .product_modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    .product_modal.show {
+      display: flex;
+    }
+    .product_modal_content {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .product_modal img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: contain;
+      margin-bottom: 15px;
+    }
+    .product_modal h3 {
+      margin-top: 0;
+    }
+    .product_modal p {
+      margin: 5px 0;
+    }
+    .close_modal {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      float: right;
+    }
+    .close_modal:hover {
+      background: #c82333;
+    }
+    .quantity_picker {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .qty_btn {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      background: #eee;
+      cursor: pointer;
+    }
+    .qty_input {
+      width: 40px;
+      text-align: center;
+    }
+  </style>
 </head>
-
 <body>
-    <nav>
-        <div class="nav_header">
-            <div class="nav_logo">
-                <a href="index.html" class="logo">HomeTech Spares</a>
-            </div>
-            <div class="nav_menu_btn" id="menu-btn">
-                <i class="ri-menu-fill"></i>
-            </div>
+  <nav>
+    <div class="nav_header">
+      <div class="nav_logo">
+        <a href="index.html" class="logo">HomeTech Spares</a>
+      </div>
+      <div class="nav_menu_btn" id="menu-btn">
+        <i class="ri-menu-fill"></i>
+      </div>
+    </div>
+    <ul class="nav_links" id="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="service.html">Service</a></li>
+    </ul>
+    <div class="nav_search" id="nav-search">
+      <input type="text" placeholder="Search products" />
+      <span><i class="ri-search-2-line"></i></span>
+    </div>
+    <div class="nav_icons">
+      <a class="icon_btn" href="wishlist.html" title="Wishlist"><i class="ri-heart-3-line"></i><span class="count" id="wishlist-count">0</span></a>
+      <a class="icon_btn" href="cart.html" title="Cart"><i class="ri-shopping-cart-2-line"></i><span class="count" id="cart-count">0</span></a>
+    </div>
+  </nav>
+
+  <header class="section_container header_container" style="position: relative;">
+    <div class="header_image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+      <div class="swiper header-swiper" style="width: 100%; height: 100%;">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="assets/banner.png" alt="Banner 1" style="width: 100%; height: 100%; object-fit: cover;" /></div>
+          <div class="swiper-slide"><img src="assets/banner2.png" alt="Banner 2" style="width: 100%; height: 100%; object-fit: cover;" /></div>
+          <div class="swiper-slide"><img src="assets/product main.jpg" alt="Product Main" style="width: 100%; height: 100%; object-fit: cover;" /></div>
         </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+    <div class="header_content" style="position: relative; z-index: 1;">
+      <div>
+        <h1>Explore Our Catalog</h1>
+        <p>Find quality spare parts for all major home appliances.</p>
+      </div>
+    </div>
+  </header>
 
-        <ul class="nav_links" id="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
-            <li><a href="service.html">Service</a></li>
-        </ul>
-        <div class="nav_search" id="nav-search">
-            <input type="text" placeholder="Search products" />
-            <span><i class="ri-search-2-line"></i></span>
-        </div>
-        <div class="nav_icons">
-            <a class="icon_btn" href="wishlist.html" title="Wishlist"><i class="ri-heart-3-line"></i><span class="count" id="wishlist-count">0</span></a>
-            <a class="icon_btn" href="cart.html" title="Cart"><i class="ri-shopping-cart-2-line"></i><span class="count" id="cart-count">0</span></a>
-        </div>
-    </nav>
+  <section class="section_container product_container" style="background-color: white; padding: 20px; border-radius: 8px;">
+    <h2 class="section_header">All Products</h2>
+    <div class="product_filters">
+      <button class="filter_btn active" data-filter="all">All</button>
+      <button class="filter_btn" data-filter="ac">AC</button>
+      <button class="filter_btn" data-filter="refrigerator">Refrigerator</button>
+      <button class="filter_btn" data-filter="washing">Washing Machine</button>
+      <button class="filter_btn" data-filter="tv">Television</button>
+      <button class="filter_btn" data-filter="cooler">Cooler</button>
+      <button class="filter_btn" data-filter="heater">Heater</button>
+    </div>
 
-    <header class="section_container header_container">
-        <div class="header_image">
-            <img src="https://placehold.co/800x600/e2e8f0/64748b?text=HomeTech+Spares" alt="Spare parts workspace" />
-        </div>
-        <div class="header_content">
-            <div>
-                <h1>Explore Our Catalog</h1>
-                <p>Find quality spare parts for all major home appliances.</p>
-            </div>
-        </div>
-    </header>
+    <div class="product_grid">
+      <!-- AC Parts -->
+      <div class="product_card" data-category="ac" data-price="2300"><h4>AC Blower Motor</h4><p>₹2,300</p><img src="assets/products/ac-blower-motor.jpg" alt="AC Blower Motor"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1" min="1" max="99"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="ac" data-price="380"><h4>AC Capacitor 45/5 µF</h4><p>₹380</p><img src="assets/products/ac-capacitor.jpg" alt="AC Capacitor"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="ac" data-price="3950"><h4>AC Copper Installation Kit</h4><p>₹3,950</p><img src="assets/products/ac-copper-installation-kit.jpg" alt="AC Copper Kit"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="ac" data-price="450"><h4>AC Air Filter Set</h4><p>₹450</p><img src="assets/products/ac-air-filter-set.jpg" alt="AC Air Filter Set"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="ac" data-price="350"><h4>AC Remote Control</h4><p>₹350</p><img src="assets/products/ac-remote-control.jpg" alt="AC Remote Control"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="ac" data-price="1950"><h4>AC Condenser Fan Motor</h4><p>₹1,950</p><img src="assets/products/ac-condencor.jpg" alt="AC Condenser Fan Motor"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="ac" data-price="1250"><h4>AC Expansion Valve</h4><p>₹1,250</p><img src="assets/products/ac-expansion-valve.jpg" alt="AC Expansion Valve"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="ac" data-price="4600"><h4>AC PCB Control Board</h4><p>₹4,600</p><img src="assets/products/ac-pcb.jpg" alt="AC PCB"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="ac" data-price="260"><h4>AC Drain Pipe (5m)</h4><p>₹260</p><img src="assets/products/ac-drain-pipe.jpg" alt="AC Drain Pipe"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="ac" data-price="520"><h4>AC Compressor Mount Kit</h4><p>₹520</p><img src="assets/products/ac-mount-kit.jpg" alt="AC Compressor Mount Kit"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="ac" data-price="320"><h4>AC Thermistor Sensor</h4><p>₹320</p><img src="assets/products/ac-thermistor-sensor.jpg" alt="AC Thermistor"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="ac" data-price="740"><h4>AC Outdoor Unit Fan Blade</h4><p>₹740</p><img src="assets/products/fan-blade.jpg" alt="AC Fan Blade"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
 
-    <section class="section_container product_container">
-        <h2 class="section_header">All Products</h2>
-        <div class="product_filters">
-            <button class="filter_btn active" data-filter="all">All</button>
-            <button class="filter_btn" data-filter="ac">AC</button>
-            <button class="filter_btn" data-filter="refrigerator">Refrigerator</button>
-            <button class="filter_btn" data-filter="washing">Washing Machine</button>
-            <button class="filter_btn" data-filter="tv">Television</button>
-            <button class="filter_btn" data-filter="cooler">Cooler</button>
-            <button class="filter_btn" data-filter="heater">Heater</button>
-        </div>
+      <!-- Refrigerator Parts -->
+      <div class="product_card" data-category="refrigerator" data-price="1250"><h4>Refrigerator Defrost Timer</h4><p>₹1,250</p><img src="assets/products/refrigerator-defrost-timer.jpg" alt="Refrigerator Defrost Timer"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="refrigerator" data-price="990"><h4>Door Gasket (Universal)</h4><p>₹990</p><img src="assets/products/door-gasket-universal.jpg" alt="Door Gasket"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="refrigerator" data-price="780"><h4>Thermostat Control</h4><p>₹780</p><img src="assets/products/thermostat-control.jpg" alt="Thermostat Control"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="refrigerator" data-price="1550"><h4>Evaporator Fan Motor</h4><p>₹1,550</p><img src="assets/products/evaporator-fan-motor.jpg" alt="Evaporator Fan Motor"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="refrigerator" data-price="430"><h4>Starter Relay</h4><p>₹430</p><img src="assets/products/starter-relay.jpg" alt="Starter Relay"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="refrigerator" data-price="860"><h4>Defrost Heater</h4><p>₹860</p><img src="assets/products/defrost-heater.jpg" alt="Defrost Heater"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="refrigerator" data-price="3950"><h4>Refrigerator PCB</h4><p>₹3,950</p><img src="assets/products/refrigerator-pcb.jpg" alt="Refrigerator PCB"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="refrigerator" data-price="1150"><h4>Water Inlet Valve</h4><p>₹1,150</p><img src="assets/products/water-inlet-valve.jpg" alt="Water Inlet Valve"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="refrigerator" data-price="540"><h4>Compressor Overload Protector</h4><p>₹540</p><img src="assets/products/compressor-overload-protector.jpg" alt="Compressor Overload Protector"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="refrigerator" data-price="1350"><h4>Refrigerator Shelf (Glass)</h4><p>₹1,350</p><img src="assets/products/refrigerator-shelf.jpg" alt="Refrigerator Shelf"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="refrigerator" data-price="620"><h4>Freezer Door Handle</h4><p>₹620</p><img src="assets/products/freezer-door-handle.jpg" alt="Freezer Door Handle"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="refrigerator" data-price="1200"><h4>Crisper Box</h4><p>₹1,200</p><img src="assets/products/crisper-box.jpg" alt="Crisper Box"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
 
-        <div class="product_grid">
-            <!-- AC Parts with data-price attribute -->
-            <div class="product_card" data-category="ac" data-price="2300"><h4>AC Blower Motor</h4><p>₹2,300</p><img src="assets/products/ac blower motor.jpg" alt="AC Blower Motor"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="ac" data-price="380"><h4>AC Capacitor 45/5 µF</h4><p>₹380</p><img src="assets/products/ac capacitor.jpg" alt="AC Capacitor"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="ac" data-price="3950"><h4>AC Copper Installation Kit</h4><p>₹3,950</p><img src="assets/products/AC Copper Installation Kit.jpg" alt="AC Copper Kit"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="ac" data-price="450"><h4>AC Air Filter Set</h4><p>₹450</p><img src="assets/products/AC Air Filter Set.jpg" alt="AC Air Filter"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="ac" data-price="350"><h4>AC Remote Control</h4><p>₹350</p><img src="assets/products/AC Remote Control.jpg" alt="AC Remote"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="ac" data-price="1950"><h4>AC Condenser Fan Motor</h4><p>₹1,950</p><img src="assets/products/ac condencor.jpg" alt="AC Condenser Fan Motor"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="ac" data-price="1250"><h4>AC Expansion Valve</h4><p>₹1,250</p><img src="assets/products/AC Expansion Valve.jpg" alt="AC Expansion Valve"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="ac" data-price="4600"><h4>AC PCB Control Board</h4><p>₹4,600</p><img src="assets/products/AC PCB Control Board.jpg" alt="AC PCB"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="ac" data-price="260"><h4>AC Drain Pipe (5m)</h4><p>₹260</p><img src="assets/products/ac drain pipe.jpg" alt="AC Drain Pipe"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="ac" data-price="520"><h4>AC Compressor Mount Kit</h4><p>₹520</p><img src="assets/products/AC Copper Installation Kit.jpg" alt="Compressor Mount Kit"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="ac" data-price="320"><h4>AC Thermistor Sensor</h4><p>₹320</p><img src="assets/products/ac thermistor sensor.jpg" alt="AC Thermistor"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="ac" data-price="740"><h4>AC Outdoor Unit Fan Blade</h4><p>₹740</p><img src="assets/products/ac outdoor unit.jpg" alt="AC Fan Blade"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
+      <!-- Washing Machine Parts -->
+      <div class="product_card" data-category="washing" data-price="850"><h4>Inlet Valve</h4><p>₹850</p><img src="assets/products/inlet-valve.jpg" alt="Washing Machine Inlet Valve"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="washing" data-price="1450"><h4>Drain Pump</h4><p>₹1,450</p><img src="assets/products/washing-pump.jpg" alt="Washing Machine Drain Pump"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="washing" data-price="420"><h4>Carbon Brushes</h4><p>₹420</p><img src="assets/products/carbon.jpg" alt="Carbon Brushes"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="washing" data-price="320"><h4>Drive Belt</h4><p>₹320</p><img src="assets/products/drive-belt.jpg" alt="Drive Belt"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="washing" data-price="690"><h4>Door Lock Switch</h4><p>₹690</p><img src="assets/products/door-lock-switch.jpg" alt="Door Lock Switch"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="washing" data-price="210"><h4>Drain Hose (2m)</h4><p>₹210</p><img src="assets/products/drain-hose.jpg" alt="Drain Hose"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="washing" data-price="570"><h4>Pressure Switch</h4><p>₹570</p><img src="assets/products/pressure-switch.jpg" alt="Pressure Switch"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="washing" data-price="1250"><h4>Shock Absorber Set</h4><p>₹1,250</p><img src="assets/products/shock-absorber-set.jpg" alt="Shock Absorber Set"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="washing" data-price="480"><h4>Motor Coupling</h4><p>₹480</p><img src="assets/products/motor-coupling.jpg" alt="Motor Coupling"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="washing" data-price="350"><h4>Detergent Drawer</h4><p>₹350</p><img src="assets/products/Detergent Drawer.jpg" alt="Detergent Drawer"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="washing" data-price="3250"><h4>Washer PCB</h4><p>₹3,250</p><img src="assets/products/washer-pcb.jpg" alt="Washer PCB"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="washing" data-price="1150"><h4>Door Seal Gasket</h4><p>₹1,150</p><img src="assets/products/door-gasket-universal.jpg" alt="Door Seal Gasket"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
 
-            <!-- Refrigerator Parts with data-price attribute -->
-            <div class="product_card" data-category="refrigerator" data-price="1250"><h4>Refrigerator Defrost Timer</h4><p>₹1,250</p><img src="assets/products/Refrigerator Defrost Timer.jpg" alt="Refrigerator Defrost Timer"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="refrigerator" data-price="990"><h4>Door Gasket (Universal)</h4><p>₹990</p><img src="assets/products/Door Gasket (Universal).jpg" alt="Door Gasket"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="refrigerator" data-price="780"><h4>Thermostat Control</h4><p>₹780</p><img src="assets/products/thermostat control.jpg" alt="Thermostat"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="refrigerator" data-price="1550"><h4>Evaporator Fan Motor</h4><p>₹1,550</p><img src="assets/products/Evaporator Fan Motor.jpg" alt="Evaporator Fan Motor"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="refrigerator" data-price="430"><h4>Starter Relay</h4><p>₹430</p><img src="assets/products/Starter Relay.jpg" alt="Starter Relay"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="refrigerator" data-price="860"><h4>Defrost Heater</h4><p>₹860</p><img src="assets/products/defrost heater.jpg" alt="Defrost Heater"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="refrigerator" data-price="3950"><h4>Refrigerator PCB</h4><p>₹3,950</p><img src="assets/products/Refrigerator PCB.jpg" alt="Refrigerator PCB"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="refrigerator" data-price="1150"><h4>Water Inlet Valve</h4><p>₹1,150</p><img src="assets/products/Water Inlet Valve.jpg" alt="Water Inlet Valve"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="refrigerator" data-price="540"><h4>Compressor Overload Protector</h4><p>₹540</p><img src="assets/products/Compressor Overload Protector.jpg" alt="Overload Protector"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="refrigerator" data-price="1350"><h4>Refrigerator Shelf (Glass)</h4><p>₹1,350</p><img src="assets/products/refrigerator shelf.jpg" alt="Glass Shelf"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="refrigerator" data-price="620"><h4>Freezer Door Handle</h4><p>₹620</p><img src="assets/products/Freezer Door Handle.jpg" alt="Freezer Door Handle"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="refrigerator" data-price="1200"><h4>Crisper Box</h4><p>₹1,200</p><img src="assets/products/crisper box.jpg" alt="Crisper Box"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
+      <!-- TV Parts -->
+      <div class="product_card" data-category="tv" data-price="1800"><h4>LED TV Backlight Strips</h4><p>₹1,800</p><img src="assets/products/led-tv-backlight-strip.jpg" alt="TV Backlight Strips"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="tv" data-price="4800"><h4>LED TV Main Board</h4><p>₹4,800</p><img src="assets/products/led-tv-main-board.jpg" alt="TV Main Board"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="tv" data-price="2700"><h4>Power Supply Board</h4><p>₹2,700</p><img src="assets/products/power-supply-board.jpg" alt="TV Power Supply Board"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="tv" data-price="2150"><h4>T-Con Board</h4><p>₹2,150</p><img src="assets/products/t-con-board.jpg" alt="T-Con Board"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="tv" data-price="420"><h4>IR Sensor Board</h4><p>₹420</p><img src="assets/products/ir-sensor.jpg" alt="IR Sensor Board"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="tv" data-price="650"><h4>TV Speakers Pair</h4><p>₹650</p><img src="assets/products/tv-speakers.jpg" alt="TV Speakers Pair"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="tv" data-price="780"><h4>WiFi Module</h4><p>₹780</p><img src="assets/products/wifi-module.jpg" alt="TV WiFi Module"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="tv" data-price="550"><h4>LED Strip Diffuser Set</h4><p>₹550</p><img src="assets/products/led-strip.jpg" alt="LED Diffusers"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="tv" data-price="390"><h4>Remote Control</h4><p>₹390</p><img src="assets/products/remote-control.jpg" alt="TV Remote"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="tv" data-price="260"><h4>LVDS Cable</h4><p>₹260</p><img src="assets/products/lvds-cable.jpg" alt="LVDS Cable"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="tv" data-price="1050"><h4>Stand Base Set</h4><p>₹1,050</p><img src="assets/products/stand-base-set.jpg" alt="Stand Base"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="tv" data-price="1250"><h4>Panel Buffer Board</h4><p>₹1,250</p><img src="assets/products/panel-buffer-board.jpg" alt="Buffer Board"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
 
-            <!-- Washing Machine Parts with data-price attribute -->
-            <div class="product_card" data-category="washing" data-price="850"><h4>Inlet Valve</h4><p>₹850</p><img src="assets/products/Inlet Valve.jpg" alt="Inlet Valve"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="washing" data-price="1450"><h4>Drain Pump</h4><p>₹1,450</p><img src="assets/products/drain pump1.jpg" alt="Drain Pump"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="washing" data-price="420"><h4>Carbon Brushes</h4><p>₹420</p><img src="assets/products/carbon.jpg" alt="Carbon Brushes"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="washing" data-price="320"><h4>Drive Belt</h4><p>₹320</p><img src="assets/products/drive belt.jpg" alt="Drive Belt"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="washing" data-price="690"><h4>Door Lock Switch</h4><p>₹690</p><img src="assets/products/Door lock switch.jpg" alt="Door Lock Switch"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="washing" data-price="210"><h4>Drain Hose (2m)</h4><p>₹210</p><img src="assets/products/drain hose.jpg" alt="Drain Hose"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="washing" data-price="570"><h4>Pressure Switch</h4><p>₹570</p><img src="assets/products/Pressure Switch.jpg" alt="Pressure Switch"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="washing" data-price="1250"><h4>Shock Absorber Set</h4><p>₹1,250</p><img src="assets/products/Shock Absorber Set.jpg" alt="Shock Absorber"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="washing" data-price="480"><h4>Motor Coupling</h4><p>₹480</p><img src="assets/products/motor coupling.jpg" alt="Motor Coupling"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="washing" data-price="350"><h4>Detergent Drawer</h4><p>₹350</p><img src="assets/products/Detergent Drawer.jpg" alt="Detergent Drawer"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="washing" data-price="3250"><h4>Washer PCB</h4><p>₹3,250</p><img src="assets/products/Washer PCB.jpg" alt="Washer PCB"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="washing" data-price="1150"><h4>Door Seal Gasket</h4><p>₹1,150</p><img src="assets/products/door .jpg" alt="Door Seal Gasket"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
+      <!-- Cooler Parts -->
+      <div class="product_card" data-category="cooler" data-price="520"><h4>Cooler Water Pump</h4><p>₹520</p><img src="assets/products/cooler-water-pump.jpg" alt="Cooler Water Pump"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="cooler" data-price="780"><h4>Honeycomb Cooling Pad</h4><p>₹780</p><img src="assets/products/honeycomb-cooling.jpg" alt="Cooling Pad"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="cooler" data-price="1350"><h4>Cooler Motor</h4><p>₹1,350</p><img src="assets/products/cooler-motor.jpg" alt="Cooler Motor"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="cooler" data-price="260"><h4>Float Valve</h4><p>₹260</p><img src="assets/products/float-valve.jpg" alt="Float Valve"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="cooler" data-price="480"><h4>Fan Blade</h4><p>₹480</p><img src="assets/products/fan-blade.jpg" alt="Cooler Fan Blade"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="cooler" data-price="190"><h4>Water Distribution Pipe</h4><p>₹190</p><img src="assets/products/water-distribution.jpg" alt="Distribution Pipe"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="cooler" data-price="340"><h4>Speed Regulator</h4><p>₹340</p><img src="assets/products/speed-regulator.jpg" alt="Speed Regulator"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="cooler" data-price="420"><h4>Castor Wheel Set</h4><p>₹420</p><img src="assets/products/castor-wheel-set.jpg" alt="Castor Wheels"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="cooler" data-price="290"><h4>Float Switch</h4><p>₹290</p><img src="assets/products/float-switch.jpg" alt="Float Switch"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="cooler" data-price="230"><h4>Water Level Indicator</h4><p>₹230</p><img src="assets/products/water-level-indicator.jpg" alt="Level Indicator"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="cooler" data-price="1250"><h4>Cooler PCB</h4><p>₹1,250</p><img src="assets/products/cooler-pcb.jpg" alt="Cooler PCB"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="cooler" data-price="350"><h4>Remote Control</h4><p>₹350</p><img src="assets/products/remote-control-for-cooler.jpg" alt="Cooler Remote"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
 
-            <!-- Television Parts with data-price attribute -->
-            <div class="product_card" data-category="tv" data-price="1800"><h4>LED TV Backlight Strips</h4><p>₹1,800</p><img src="assets/products/led tv backlight strip.jpg" alt="Backlight Strips"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="tv" data-price="4800"><h4>LED TV Main Board</h4><p>₹4,800</p><img src="assets/products/led tv main board.jpg" alt="TV Main Board"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="tv" data-price="2700"><h4>Power Supply Board</h4><p>₹2,700</p><img src="assets/products/Power Supply Board.jpg" alt="Power Supply Board"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="tv" data-price="2150"><h4>T-Con Board</h4><p>₹2,150</p><img src="assets/products/T-Con Board.jpg" alt="T-Con Board"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="tv" data-price="420"><h4>IR Sensor Board</h4><p>₹420</p><img src="assets/products/IR sensor.jpg" alt="IR Sensor"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="tv" data-price="650"><h4>TV Speakers Pair</h4><p>₹650</p><img src="assets/products/tv speaker pair.jpg" alt="TV Speakers"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="tv" data-price="780"><h4>WiFi Module</h4><p>₹780</p><img src="assets/products/wifi module.jpg" alt="WiFi Module"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="tv" data-price="550"><h4>LED Strip Diffuser Set</h4><p>₹550</p><img src="assets/products/led strip.jpg" alt="LED Diffusers"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="tv" data-price="390"><h4>Remote Control</h4><p>₹390</p><img src="assets/products/Remote Control.jpg" alt="TV Remote"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="tv" data-price="260"><h4>LVDS Cable</h4><p>₹260</p><img src="assets/products/LVDS Cable.jpg" alt="LVDS Cable"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="tv" data-price="1050"><h4>Stand Base Set</h4><p>₹1,050</p><img src="assets/products/Stand Base Set.jpg" alt="Stand Base"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="tv" data-price="1250"><h4>Panel Buffer Board</h4><p>₹1,250</p><img src="assets/products/Panel Buffer Board.jpg" alt="Buffer Board"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
+      <!-- Heater Parts -->
+      <div class="product_card" data-category="heater" data-price="260"><h4>Room Heater Coil</h4><p>₹260</p><img src="assets/products/room-heater-coil.jpg" alt="Room Heater Coil"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="heater" data-price="650"><h4>PTC Heating Element</h4><p>₹650</p><img src="assets/products/ptc-heating-element.jpg" alt="PTC Heating Element"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="heater" data-price="820"><h4>Fan Motor</h4><p>₹820</p><img src="assets/products/fan-motor.jpg" alt="Heater Fan Motor"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="heater" data-price="240"><h4>Tip-Over Switch</h4><p>₹240</p><img src="assets/products/Tip-Over Switch.jpg" alt="Tip-Over Switch"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="heater" data-price="180"><h4>Thermostat Knob</h4><p>₹180</p><img src="assets/products/thermostat-knob.jpg" alt="Thermostat Knob"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="heater" data-price="210"><h4>Safety Thermal Fuse</h4><p>₹210</p><img src="assets/products/safety-thermal-fuse.jpg" alt="Thermal Fuse"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="heater" data-price="270"><h4>Power Selector Switch</h4><p>₹270</p><img src="assets/products/power-selector-switch.jpg" alt="Selector Switch"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="heater" data-price="1450"><h4>Heater PCB</h4><p>₹1,450</p><img src="assets/products/heater-pcb.jpg" alt="Heater PCB"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="heater" data-price="190"><h4>Fan Grill</h4><p>₹190</p><img src="assets/products/fan-grill.jpg" alt="Fan Grill"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="heater" data-price="220"><h4>Power Cord (3m)</h4><p>₹220</p><img src="assets/products/power-cord-(3m).jpg" alt="Power Cord"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="heater" data-price="90"><h4>Indicator Neon Lamp</h4><p>₹90</p><img src="assets/products/indicator-neon-lamp.jpg" alt="Indicator Lamp"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+      <div class="product_card" data-category="heater" data-price="350"><h4>Heater Reflector</h4><p>₹350</p><img src="assets/products/heater-reflector.jpg" alt="Heater Reflector"><div class="product_actions"><button class="view_btn">View Details</button><button class="add_btn">Add to Cart</button></div><div class="quantity_picker"><button class="qty_btn">-</button><input type="number" class="qty_input" value="1"><button class="qty_btn">+</button></div></div>
+    </div>
+  </section>
 
-            <!-- Cooler Parts with data-price attribute -->
-            <div class="product_card" data-category="cooler" data-price="520"><h4>Cooler Water Pump</h4><p>₹520</p><img src="assets/products/cooler water pump.jpg" alt="Cooler Water Pump"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="cooler" data-price="780"><h4>Honeycomb Cooling Pad</h4><p>₹780</p><img src="assets/products/honeycomb cooling .jpg" alt="Cooling Pad"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="cooler" data-price="1350"><h4>Cooler Motor</h4><p>₹1,350</p><img src="assets/products/Cooler Motor.jpg" alt="Cooler Motor"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="cooler" data-price="260"><h4>Float Valve</h4><p>₹260</p><img src="assets/products/Float Valve.jpg" alt="Float Valve"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="cooler" data-price="480"><h4>Fan Blade</h4><p>₹480</p><img src="assets/products/fan blade.jpg" alt="Cooler Fan Blade"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="cooler" data-price="190"><h4>Water Distribution Pipe</h4><p>₹190</p><img src="assets/products/water distribution.jpg" alt="Distribution Pipe"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="cooler" data-price="340"><h4>Speed Regulator</h4><p>₹340</p><img src="assets/products/Speed Regulator.jpg" alt="Speed Regulator"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="cooler" data-price="420"><h4>Castor Wheel Set</h4><p>₹420</p><img src="assets/products/Castor Wheel Set.jpg" alt="Castor Wheels"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="cooler" data-price="290"><h4>Float Switch</h4><p>₹290</p><img src="assets/products/float siwtch.jpg" alt="Float Switch"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="cooler" data-price="230"><h4>Water Level Indicator</h4><p>₹230</p><img src="assets/products/Water Level Indicator.jpg" alt="Level Indicator"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="cooler" data-price="1250"><h4>Cooler PCB</h4><p>₹1,250</p><img src="assets/products/cooler pcb.jpg" alt="Cooler PCB"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="cooler" data-price="350"><h4>Remote Control</h4><p>₹350</p><img src="assets/products/remote control for cooler.jpg" alt="Cooler Remote"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
+  <!-- Product Detail Modal -->
+  <div id="productModal" class="product_modal">
+    <div class="product_modal_content">
+      <button class="close_modal" id="closeModal">&times;</button>
+      <img id="modalImage" src="" alt="Product Image">
+      <h3 id="modalName"></h3>
+      <p id="modalPrice"></p>
+      <p id="modalCategory"></p>
+      <p id="modalDescription"></p>
+    </div>
+  </div>
 
-            <!-- Heater Parts with data-price attribute -->
-            <div class="product_card" data-category="heater" data-price="260"><h4>Room Heater Coil</h4><p>₹260</p><img src="assets/products/Room Heater Coil.jpg" alt="Room Heater Coil"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="heater" data-price="650"><h4>PTC Heating Element</h4><p>₹650</p><img src="assets/products/PTC Heating Element.jpg" alt="PTC Heating Element"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="heater" data-price="820"><h4>Fan Motor</h4><p>₹820</p><img src="assets/products/fan motor.jpg" alt="Heater Fan Motor"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="heater" data-price="240"><h4>Tip-Over Switch</h4><p>₹240</p><img src="assets/products/Tip-Over Switch.jpg" alt="Tip-Over Switch"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="heater" data-price="180"><h4>Thermostat Knob</h4><p>₹180</p><img src="assets/products/Thermostat Knob.jpg" alt="Thermostat Knob"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="heater" data-price="210"><h4>Safety Thermal Fuse</h4><p>₹210</p><img src="assets/products/Safety Thermal Fuse.jpg" alt="Thermal Fuse"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="heater" data-price="270"><h4>Power Selector Switch</h4><p>₹270</p><img src="assets/products/Power Selector Switch.jpg" alt="Selector Switch"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="heater" data-price="1450"><h4>Heater PCB</h4><p>₹1,450</p><img src="assets/products/Heater PCB.jpg" alt="Heater PCB"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="heater" data-price="190"><h4>Fan Grill</h4><p>₹190</p><img src="assets/products/Fan Grill.jpg" alt="Fan Grill"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="heater" data-price="220"><h4>Power Cord (3m)</h4><p>₹220</p><img src="assets/products/Power Cord (3m.jpg" alt="Power Cord"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="heater" data-price="90"><h4>Indicator Neon Lamp</h4><p>₹90</p><img src="assets/products/indicator Neon Lamp.jpg" alt="Indicator Lamp"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-            <div class="product_card" data-category="heater" data-price="350"><h4>Heater Reflector</h4><p>₹350</p><img src="assets/products/Heater Reflector.jpg" alt="Heater Reflector"><div class="product_actions"><button class="wish_btn"><i class="ri-heart-3-line"></i></button><button class="add_btn">Add to Cart</button></div></div>
-        </div>
-    </section>
+  <footer class="footer">
+    <!-- Footer content -->
+  </footer>
 
-    <footer class="footer">
-        <!-- Footer content remains the same -->
-    </footer>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="product-data.js"></script>
+  <script src="script.js"></script>
+  <script src="search.js"></script>
+  <!-- Removed inline filtering script to avoid conflict with dynamic rendering and filtering in script.js -->
+  <script>
+    // Product detail modal functionality
+    const productModal = document.getElementById('productModal');
+    const closeModal = document.getElementById('closeModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalName = document.getElementById('modalName');
+    const modalPrice = document.getElementById('modalPrice');
+    const modalCategory = document.getElementById('modalCategory');
+    const modalDescription = document.getElementById('modalDescription');
 
-    <script src="script.js"></script>
-    <script>
-        // This inline script handles filtering logic specific to this page
-        document.addEventListener('DOMContentLoaded', () => {
-            const filterButtons = document.querySelectorAll('.product_filters .filter_btn');
-            const productCards = document.querySelectorAll('.product_grid .product_card');
+    // Add event listeners to "View Details" buttons
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('view_btn')) {
+        const card = e.target.closest('.product_card');
+        const name = card.querySelector('h4').textContent;
+        const price = card.querySelector('p').textContent;
+        const imgSrc = card.querySelector('img').src;
+        const category = card.getAttribute('data-category');
+        const description = 'Detailed description for ' + name + '. This is a high-quality spare part for your appliance.';
 
-            const filterProducts = (filterValue) => {
-                productCards.forEach(card => {
-                    card.style.display = (filterValue === 'all' || card.dataset.category === filterValue) ? 'flex' : 'none';
-                });
-                filterButtons.forEach(btn => {
-                    btn.classList.toggle('active', btn.dataset.filter === filterValue);
-                });
-            };
+        modalImage.src = imgSrc;
+        modalName.textContent = name;
+        modalPrice.textContent = price;
+        modalCategory.textContent = 'Category: ' + category;
+        modalDescription.textContent = description;
 
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => filterProducts(button.dataset.filter));
-            });
+        productModal.classList.add('show');
+      }
+    });
 
-            const urlParams = new URLSearchParams(window.location.search);
-            const filterParam = urlParams.get('filter');
-            if (filterParam) {
-                filterProducts(filterParam);
-            }
-        });
-    </script>
+    // Close modal
+    closeModal.addEventListener('click', () => {
+      productModal.classList.remove('show');
+    });
+
+    // Close modal when clicking outside
+    productModal.addEventListener('click', (e) => {
+      if (e.target === productModal) {
+        productModal.classList.remove('show');
+      }
+    });
+  </script>
 </body>
-
 </html>
-

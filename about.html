@@ -38,11 +38,24 @@
         </div>
     </nav>
 
-    <header class="section_container header_container">
-        <div class="header_image">
-            <img src="" alt="Appliance lab" />
+    <header class="section_container header_container" style="position: relative;">
+        <div class="header_image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+            <div class="swiper header-swiper" style="width: 100%; height: 100%;">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="assets/banner.png" alt="Banner 1" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="assets/banner2.png" alt="Banner 2" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="assets/product main.jpg" alt="Product Main" style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
-        <div class="header_content">
+        <div class="header_content" style="position: relative; z-index: 1;">
             <div>
                 <h1>Our Story</h1>
                 <p>We started HomeTech Spares to make appliance repairs simple, affordable, and dependable.</p>

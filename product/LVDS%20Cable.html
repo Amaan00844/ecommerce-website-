@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../product-detail.css" />
+    <title>LVDS Cable - HomeTech Spares</title>
+</head>
+
+<body>
+    <nav>
+
+        <div class="nav_header">
+            <div class="nav_logo">
+                <a href="../index.html" class="logo">HomeTech Spares </a>
+            </div>
+            <div class="nav_menu_btn" id="menu-btn">
+                <i class="ri-menu-fill"></i>
+            </div>
+        </div>
+
+        <ul class="nav_links" id="nav-links">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../products.html">Products</a></li>
+            <li><a href="../about.html">About</a></li>
+            <li><a href="../contact.html">Contact</a></li>
+            <li><a href="../service.html">Service</a></li>
+            <li><a href="../register.html">Register</a></li>
+        </ul>
+        <div class="nav_icons">
+            <a class="icon_btn" href="../wishlist.html" title="Wishlist"><i class="ri-heart-3-line"></i><span class="count" id="wishlist-count">0</span></a>
+            <a class="icon_btn" href="../cart.html" title="Cart"><i class="ri-shopping-cart-2-line"></i><span class="count" id="cart-count">0</span></a>
+        </div>
+    </nav>
+
+    <main class="section_container">
+        <div class="product_detail_container">
+            <div class="product_gallery">
+                <div class="main_image_container">
+                    <img src="assets/products/LVDS Cable.jpg" alt="PRODUCT_NAME">
+                </div>
+            </div>
+
+            <div class="product_detail_card" data-name="LVDS Cable" data-price="260" data-img="assets/products/LVDS Cable.jpg">
+                <div class="product_info">
+                    <h1 class="product_title">LVDS Cable</h1>
+                    <p class="product_price">₹260</p>
+                    <p class="product_stock_status">
+                        <i class="ri-checkbox-circle-fill"></i> In Stock
+                    </p>
+
+                    <div class="product_description">
+                        <p>LVDS cable for display.</p>
+                    </div>
+
+                    <div class="product_specs">
+                        <h4>Specifications:</h4>
+                        <ul>
+                            <li><strong>Category:</strong> tv</li>
+                            <li><strong>Warranty:</strong> 1 Year Manufacturer Warranty</li>
+                            <li><strong>Compatibility:</strong> Universal fit for most tv models</li>
+                        </ul>
+                    </div>
+
+                    <button class="add_btn">
+                        <i class="ri-shopping-cart-2-line"></i> Add to Cart
+                    </button>
+                    <div class="quantity_picker" style="margin-top: 10px; display: flex; align-items: center; gap: 10px;">
+                        <label for="quantity">Quantity:</label>
+                        <button class="qty_btn" id="decrease-qty" style="padding: 5px 10px; border: 1px solid #ccc; background: #eee; cursor: pointer;">-</button>
+                        <input type="number" id="quantity" name="quantity" value="1" min="1" max="99" style="width: 60px; padding: 5px; text-align: center;" />
+                        <button class="qty_btn" id="increase-qty" style="padding: 5px 10px; border: 1px solid #ccc; background: #eee; cursor: pointer;">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer" id="contact">
+        <div class="section_container footer_container">
+            <div class="footer_col">
+                <div class="footer_logo">
+                    <a href="#" class="logo">HomeTech Spares</a>
+                </div>
+                <p>
+                    Quality parts and expert repairs. Reliable service, transparent pricing, and fast delivery across India.
+                </p>
+                <ul class="footer_socials">
+                    <li>
+                        <a href="#"><i class="ri-facebook-fill"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="ri-twitter-fill"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="ri-linkedin-fill"></i></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="ri-pinterest-fill"></i></a>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="footer_col">
+                <h4>Catalog</h4>
+                <ul class="footer_links">
+                <li><a href="#product">AC Parts</a></li>
+                <li><a href="#product">Refrigerator Parts</a></li>
+                <li><a href="#product">Washing Machine Parts</a></li>
+                <li><a href="#product">Television Parts</a></li>
+                <li><a href="#product">Cooler & Heater Parts</a></li>
+                </ul>
+            </div>
+            <div class="footer_col">
+                <h4>Resources</h4>
+                <ul class="footer_links">
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">FAQs</a></li>
+                <li><a href="#">Warranty & Returns</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div class="footer_col">
+                <h4>Contact</h4>
+                <ul class="footer_links">
+                <li><a href="#">Email: support@hometechspares.com</a></li>
+                <li><a href="#">Phone: +91 80 1234 5678</a></li>
+                <li><a href="#">Address: HomeTech Spares, Bengaluru, KA 560001</a></li>
+                <li><a href="#">Hours: Mon–Sat, 9:00 AM – 6:00 PM</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer_bar">
+            <p>&copy; 2025 HomeTech Spares. All Rights Reserved. </p>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+    <script>
+        // Quantity picker functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const quantityInput = document.getElementById('quantity');
+            const decreaseBtn = document.getElementById('decrease-qty');
+            const increaseBtn = document.getElementById('increase-qty');
+            const addToCartBtn = document.querySelector('.add_btn');
+            const productCard = document.querySelector('.product_detail_card');
+            
+            // Decrease quantity
+            decreaseBtn.addEventListener('click', function() {
+                let value = parseInt(quantityInput.value);
+                if (value > 1) {
+                    quantityInput.value = value - 1;
+                }
+            });
+            
+            // Increase quantity
+            increaseBtn.addEventListener('click', function() {
+                let value = parseInt(quantityInput.value);
+                if (value < 99) {
+                    quantityInput.value = value + 1;
+                }
+            });
+            
+            // Add to cart functionality
+            addToCartBtn.addEventListener('click', function() {
+                const productName = productCard.dataset.name;
+                const productPrice = productCard.dataset.price;
+                const productImage = productCard.dataset.img;
+                const quantity = parseInt(quantityInput.value);
+                
+                // Add to cart logic (this would typically call a function from script.js)
+                addToCart(productName, productPrice, productImage, quantity);
+            });
+            
+            // Function to add item to cart
+            function addToCart(name, price, image, quantity) {
+                // Get existing cart items from localStorage or initialize empty array
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                
+                // Check if item already exists in cart
+                let existingItem = cart.find(item => item.name === name);
+                
+                if (existingItem) {
+                    // If item exists, update quantity
+                    existingItem.quantity += quantity;
+                } else {
+                    // If item doesn't exist, add new item
+                    cart.push({
+                        name: name,
+                        price: price,
+                        image: image,
+                        quantity: quantity
+                    });
+                }
+                
+                // Save updated cart to localStorage
+                localStorage.setItem('cart', JSON.stringify(cart));
+                
+                // Update cart count in UI
+                updateCartCount();
+                
+                // Show confirmation message
+                alert(`${name} (${quantity}) added to cart!`);
+            }
+            
+            // Function to update cart count
+            function updateCartCount() {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                let totalCount = cart.reduce((total, item) => total + item.quantity, 0);
+                const cartCountElement = document.getElementById('cart-count');
+                if (cartCountElement) {
+                    cartCountElement.textContent = totalCount;
+                }
+            }
+            
+            // Initialize cart count
+            updateCartCount();
+        });
+    </script>
+</body>
+
+</html>

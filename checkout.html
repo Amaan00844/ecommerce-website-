@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Checkout - HomeTech Spares</title>
+</head>
+<body>
+    <nav>
+        <div class="nav_header">
+            <div class="nav_logo">
+                <a href="index.html" class="logo">HomeTech Spares</a>
+            </div>
+            <div class="nav_menu_btn" id="menu-btn">
+                <i class="ri-menu-fill"></i>
+            </div>
+        </div>
+        <ul class="nav_links" id="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="service.html">Service</a></li>
+        </ul>
+        <div class="nav_icons">
+            <a class="icon_btn" href="cart.html" title="Cart"><i class="ri-shopping-cart-2-line"></i><span class="count" id="cart-count">0</span></a>
+        </div>
+    </nav>
+
+    <header class="section_container header_container_small">
+        <h1>Checkout</h1>
+    </header>
+
+    <section class="section_container checkout_container">
+        <div class="checkout_form_card">
+            <h2>Shipping Information</h2>
+            <form id="checkoutForm">
+                <div class="input_group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="input_group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="input_group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+91 12345 67890">
+                </div>
+                <div class="input_group">
+                    <label for="address">Shipping Address</label>
+                    <textarea id="address" name="address" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="checkout_btn">Place Order</button>
+            </form>
+            <p id="checkoutError" class="error_message"></p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="section_container footer_container">
+            <div class="footer_col">
+                <div class="footer_logo">
+                    <a href="index.html" class="logo">HomeTech Spares</a>
+                </div>
+                <p>Quality parts for every repair.</p>
+            </div>
+        </div>
+        <div class="footer_bar">
+            <p>&copy; 2025 HomeTech Spares. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="checkout-handler.js"></script>
+</body>
+</html>

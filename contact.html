@@ -2,11 +2,16 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <!-- Removed old CSS link -->
+    <!-- <link rel="stylesheet" href="styles.css" /> -->
+    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="animations.css" />
+    <link rel="stylesheet" href="modern-ui.css" />
     <title>Contact — HomeTech Spares</title>
 </head>
 
@@ -34,11 +39,24 @@
         </div>
     </nav>
 
-    <header class="section_container header_container">
-        <div class="header_image">
-            <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1600&auto=format&fit=crop" alt="Contact support" />
+    <header class="section_container header_container" style="position: relative;">
+        <div class="header_image" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;">
+            <div class="swiper header-swiper" style="width: 100%; height: 100%;">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="assets/banner.png" alt="Banner 1" style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="assets/banner2.png" alt="Banner 2" style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+                    <div class="swiper-slide">
+                        <img src="assets/product main.jpg" alt="Product Main" style="width: 100%; height: 100%; object-fit: cover;" />
+                    </div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
         </div>
-        <div class="header_content">
+        <div class="header_content" style="position: relative; z-index: 1;">
             <div>
                 <h1>Contact Us</h1>
                 <p>We're here to help with product questions, compatibility, and orders.</p>
@@ -132,4 +150,3 @@
 </body>
 
 </html>
-

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - HomeTech Spares</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="animations.css" />
+    <link rel="stylesheet" href="modern-ui.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="animate-fadeIn">
+        <div class="nav_header">
+            <div class="nav_logo">
+                <a href="index.html" class="logo animate-pulse">HomeTech Spares </a>
+            </div>
+            <div class="nav_menu_btn hover-grow" id="menu-btn">
+                <i class="ri-menu-fill"></i>
+            </div>
+        </div>
+
+        <ul class="nav_links" id="nav-links">
+            <li><a href="index.html" class="animate-slideInLeft delay-100">Home</a></li>
+            <li><a href="products.html" class="animate-slideInLeft delay-200">Products</a></li>
+            <li><a href="about.html" class="animate-slideInLeft delay-300">About</a></li>
+            <li><a href="contact.html" class="animate-slideInLeft delay-400">Contact</a></li>
+            <li><a href="service.html" class="animate-slideInLeft delay-500">Service</a></li>
+            <li><a href="admin.html" class="btn-animate">Admin</a></li>
+        </ul>
+    </nav>
+
+    <!-- Admin Login Section -->
+    <div class="section_container" id="loginContainer">
+        <div class="form_card animate-fadeIn">
+            <h2 class="form_title">Admin Login</h2>
+            <form id="adminLoginForm">
+                <div class="input_group">
+                    <label for="adminEmail">Email</label>
+                    <input type="email" id="adminEmail" placeholder="Enter your email" required>
+                </div>
+                <div class="input_group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p id="loginError" class="error_message"></p>
+                <p class="login_link">Don't have an account? <a href="admin_register.html">Register here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Section -->
+    <div class="section_container" id="adminDashboard" style="display: none;">
+        <h1 class="section_header animate-fadeIn">Admin Dashboard</h1>
+        
+        <nav class="admin_nav animate-slideInBottom">
+            <button id="showDashboard" class="btn btn-primary"><i class="ri-dashboard-line"></i> Dashboard</button>
+            <button id="showProducts" class="btn btn-primary"><i class="ri-shopping-bag-line"></i> Manage Products</button>
+            <button id="showOrders" class="btn btn-primary"><i class="ri-file-list-3-line"></i> View Orders</button>
+            <button id="logout" class="btn btn-outline"><i class="ri-logout-box-line"></i> Logout</button>
+        </nav>
+
+        <!-- Dashboard Overview Section -->
+        <div id="dashboardSection" class="animate-fadeIn">
+            <h2 class="section_header">Dashboard Overview</h2>
+            <div class="stats-cards">
+                <div class="stat-card card hover-lift">
+                    <h3><i class="ri-money-dollar-circle-line"></i> Total Revenue</h3>
+                    <p id="totalSales" class="animate-pulse">₹0</p>
+                </div>
+                <div class="stat-card card hover-lift">
+                    <h3><i class="ri-shopping-cart-2-line"></i> Total Orders</h3>
+                    <p id="orderCount" class="animate-pulse">0</p>
+                </div>
+                <div class="stat-card card hover-lift">
+                    <h3><i class="ri-shopping-bag-line"></i> Products Sold</h3>
+                    <p id="totalProductsSold" class="animate-pulse">0</p>
+                </div>
+                <div class="stat-card card hover-lift">
+                    <h3><i class="ri-calendar-check-line"></i> Recent Orders (30 days)</h3>
+                    <p id="recentOrders" class="animate-pulse">0</p>
+                </div>
+                <div class="stat-card card hover-lift">
+                    <h3><i class="ri-product-hunt-line"></i> Total Products</h3>
+                    <p id="totalProducts" class="animate-pulse">0</p>
+                </div>
+                <div class="stat-card card hover-lift">
+                    <h3><i class="ri-user-line"></i> Registered Users</h3>
+                    <p id="usersCount" class="animate-pulse">0</p>
+                </div>
+            </div>
+            <div class="charts-container">
+                <div class="chart card">
+                    <h3>Sales by Category</h3>
+                    <canvas id="salesByCategoryChart"></canvas>
+                </div>
+                <div class="chart card">
+                    <h3>Top Selling Products</h3>
+                    <canvas id="topProductsChart"></canvas>
+                </div>
+            </div>
+            <div class="table-container card" style="margin-top: 2rem;">
+                <h3>Customer Purchases (Who Bought What)</h3>
+                <table id="customerPurchasesTable">
+                    <thead>
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Email</th>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Products Management Section -->
+        <div id="productsSection" class="animate-fadeIn" style="display: none;">
+            <div class="section_header_container">
+                <h2 class="section_header">Products Management</h2>
+                <button id="addProductBtn" class="btn btn-primary"><i class="ri-add-line"></i> Add Product</button>
+            </div>
+            <div class="table-container card">
+                <table id="productsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Orders Section -->
+        <div id="ordersSection" class="animate-fadeIn" style="display: none;">
+            <h2 class="section_header">Customer Orders</h2>
+            <div class="table-container card">
+                <table id="ordersTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Address</th>
+                            <th>Items</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Modal for adding/editing product -->
+        <div id="productModal" class="modal" style="display: none;">
+            <div class="modal-content card animate-fadeIn">
+                <h2 class="form_title">Product Details</h2>
+                <form id="productForm">
+                    <input type="hidden" id="productId">
+                    <div class="input_group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" id="productName" placeholder="Enter product name" required>
+                    </div>
+                    <div class="input_group">
+                        <label for="productPrice">Price</label>
+                        <input type="number" id="productPrice" placeholder="Enter price" step="0.01" required>
+                    </div>
+                    <div class="input_group">
+                        <label for="productCategory">Category</label>
+                        <input type="text" id="productCategory" placeholder="Enter category">
+                    </div>
+                    <div class="input_group">
+                        <label for="productImageFile">Upload Image</label>
+                        <input type="file" id="productImageFile" accept="image/*">
+                    </div>
+                    <div class="input_group">
+                        <label for="productDescription">Description</label>
+                        <textarea id="productDescription" placeholder="Enter product description"></textarea>
+                    </div>
+                    <div class="form-buttons">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" id="cancelBtn" class="btn btn-outline">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="section_container footer_container">
+            <div class="footer_col">
+                <div class="footer_logo">
+                    <a href="#" class="logo">HomeTech Spares</a>
+                </div>
+                <p>Quality parts and expert repairs. Reliable service, transparent pricing, and fast delivery across India.</p>
+                <ul class="footer_socials">
+                    <li><a href="#"><i class="ri-facebook-fill"></i></a></li>
+                    <li><a href="#"><i class="ri-twitter-fill"></i></a></li>
+                    <li><a href="#"><i class="ri-linkedin-fill"></i></a></li>
+                    <li><a href="#"><i class="ri-pinterest-fill"></i></a></li>
+                </ul>
+            </div>
+            <div class="footer_col">
+                <h4>Catalog</h4>
+                <ul class="footer_links">
+                    <li><a href="#product">AC Parts</a></li>
+                    <li><a href="#product">Refrigerator Parts</a></li>
+                    <li><a href="#product">Washing Machine Parts</a></li>
+                    <li><a href="#product">Television Parts</a></li>
+                    <li><a href="#product">Cooler & Heater Parts</a></li>
+                </ul>
+            </div>
+            <div class="footer_col">
+                <h4>Resources</h4>
+                <ul class="footer_links">
+                    <li><a href="#">Pricing</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Warranty & Returns</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms & Conditions</a></li>
+                </ul>
+            </div>
+            <div class="footer_col">
+                <h4>Contact</h4>
+                <ul class="footer_links">
+                    <li><a href="#">Email: support@hometechspares.com</a></li>
+                    <li><a href="#">Phone: +91 80 1234 5678</a></li>
+                    <li><a href="#">Address: HomeTech Spares, Bengaluru, KA 560001</a></li>
+                    <li><a href="#">Hours: Mon–Sat, 9:00 AM – 6:00 PM</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer_bar">
+            <p>&copy; 2025 HomeTech Spares. All Rights Reserved. </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="script.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

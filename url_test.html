@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Test</title>
+</head>
+<body>
+    <h1>URL Test</h1>
+    <button id="testBtn">Test URL Construction</button>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById('testBtn').addEventListener('click', function() {
+            const productName = "AC Blower Motor";
+            const encodedName = encodeURIComponent(productName);
+            const url = 'product/' + encodedName + '.html';
+            
+            document.getElementById('result').innerHTML = `
+                Product Name: ${productName}<br>
+                Encoded Name: ${encodedName}<br>
+                Full URL: ${url}<br>
+                <a href="${url}" target="_blank">Test Link</a>
+            `;
+        });
+    </script>
+</body>
+</html>

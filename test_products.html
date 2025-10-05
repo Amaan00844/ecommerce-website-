@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Products Loading</title>
+</head>
+<body>
+    <h1>Test Products Loading</h1>
+    <p id="status">Checking if products are loaded...</p>
+    <div id="result"></div>
+
+    <script src="product-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusElement = document.getElementById('status');
+            const resultElement = document.getElementById('result');
+            
+            if (typeof products !== 'undefined' && products.length > 0) {
+                statusElement.textContent = 'Success! Products are loaded.';
+                resultElement.innerHTML = `
+                    <p>Number of products: ${products.length}</p>
+                    <p>First product: ${products[0].name}</p>
+                    <p>First product URL would be: product/${encodeURIComponent(products[0].name)}.html</p>
+                `;
+            } else {
+                statusElement.textContent = 'Error: Products are not loaded correctly.';
+                resultElement.innerHTML = '<p>Please check that product-data.js is properly included.</p>';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+- [x] Update img src for AC Fan Blade: ac-fan-blade.jpg → fan-blade.jpg
+- [x] Update img src for Thermostat Control: refrigerator-thermostat.jpg → thermostat-control.jpg
+- [x] Update img src for Evaporator Fan Motor: refrigerator-fan-motor.jpg → evaporator-fan-motor.jpg
+- [x] Update img src for Starter Relay: refrigerator-relay.jpg → starter-relay.jpg
+- [x] Update img src for Washing Machine Inlet Valve: washing inlet valve.jpg → inlet-valve.jpg
+- [x] Update img src for TV Backlight Strips: tv backlight.jpg → led-tv-backlight-strip.jpg
+- [x] Update img src for TV Main Board: tv main board.jpg → led-tv-main-board.jpg
+- [x] Update img src for TV Power Supply Board: tv power supply.jpg → power-supply-board.jpg
+- [x] Update img src for T-Con Board: tv tcon board.jpg → t-con-board.jpg
+- [x] Update img src for IR Sensor Board: tv ir sensor.jpg → ir-sensor.jpg
+- [x] Update img src for TV WiFi Module: tv wifi module.jpg → wifi-module.jpg
+- [ ] Check for missing images like washing-gasket.jpg

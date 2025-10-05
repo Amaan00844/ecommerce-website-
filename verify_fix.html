@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Fix</title>
+</head>
+<body>
+    <h1>Verify Product Navigation Fix</h1>
+    <div id="status">Loading...</div>
+    <div id="details"></div>
+
+    <!-- Load the product data first -->
+    <script src="product-data.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusElement = document.getElementById('status');
+            const detailsElement = document.getElementById('details');
+            
+            if (typeof products !== 'undefined' && products.length > 0) {
+                statusElement.innerHTML = '<p style="color: green;">✓ Products loaded successfully!</p>';
+                detailsElement.innerHTML = `
+                    <h2>Product Data Verification:</h2>
+                    <p>Total products: ${products.length}</p>
+                    <p>First product: ${products[0].name}</p>
+                    <p>Expected URL: <a href="product/${encodeURIComponent(products[0].name)}.html" target="_blank">product/${encodeURIComponent(products[0].name)}.html</a></p>
+                    <h3>Testing URL Construction for a few products:</h3>
+                    <ul>
+                        ${products.slice(0, 5).map(p => 
+                            `<li>${p.name} → product/${encodeURIComponent(p.name)}.html</li>`
+                        ).join('')}
+                    </ul>
+                `;
+            } else {
+                statusElement.innerHTML = '<p style="color: red;">✗ Error: Products not loaded!</p>';
+                detailsElement.innerHTML = '<p>Please check that product-data.js is properly included and formatted.</p>';
+            }
+        });
+    </script>
+</body>
+</body>
+</html>

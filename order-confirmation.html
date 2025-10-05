@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        .confirmation-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 600px;
+            margin: 2rem auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c7be5;
+        }
+        .order-details {
+            text-align: left;
+            margin-top: 1rem;
+        }
+        .order-details p {
+            margin: 0.5rem 0;
+        }
+        .btn-home {
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background-color: #2c7be5;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <h1>Thank you for your order!</h1>
+        <p>Your payment has been successfully processed.</p>
+        <div class="order-details" id="orderDetails">
+            <!-- Order details will be populated here -->
+        </div>
+        <a href="index.html" class="btn-home">Back to Home</a>
+    </div>
+
+    <script>
+        const orderDetailsDiv = document.getElementById('orderDetails');
+
+        function renderOrderDetails(data) {
+            let html = `
+                <p><strong>Order ID:</strong> ${data.orderId}</p>
+                <p><strong>Name:</strong> ${data.fullName}</p>
+                <p><strong>Email:</strong> ${data.email}</p>
+                <p><strong>Phone:</strong> ${data.phone}</p>
+                <p><strong>Shipping Address:</strong> ${data.address}</p>
+                <p><strong>Payment Method:</strong> ${data.paymentMethod}</p>
+                <h3>Items:</h3>
+                <ul>
+            `;
+            data.items.forEach(item => {
+                html += `<li>${item.name} - Quantity: ${item.quantity} - Price: ₹${item.price}</li>`;
+            });
+            html += `</ul><p><strong>Total:</strong> ₹${data.total.toFixed(2)}</p>`;
+            orderDetailsDiv.innerHTML = html;
+        }
+
+        // Read order data from localStorage
+        const storedOrder = localStorage.getItem('lastOrder');
+        if (storedOrder) {
+            const orderData = JSON.parse(storedOrder);
+            renderOrderDetails(orderData);
+        } else {
+            orderDetailsDiv.innerHTML = '<p>No order details found.</p>';
+        }
+    </script>
+</body>
+</html>

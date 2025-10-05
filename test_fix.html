@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Fix</title>
+</head>
+<body>
+    <h1>Test Product Navigation Fix</h1>
+    <p>Click the button below to test if the product navigation is working correctly:</p>
+    
+    <div class="product_card">
+        <h4>AC Blower Motor</h4>
+        <button class="view_btn">View Details</button>
+    </div>
+    
+    <p>Expected URL: <a href="product/AC%20Blower%20Motor.html" target="_blank">product/AC%20Blower%20Motor.html</a></p>
+
+    <script>
+        // Simulate the fixed event listener
+        document.body.addEventListener('click', (e) => {
+            if (e.target.matches('.view_btn')) {
+                const card = e.target.closest('.product_card');
+                const name = card.querySelector('h4').textContent;
+                // Use the same encoding as the PowerShell script that generates product pages
+                const encodedName = encodeURIComponent(name);
+                const url = 'product/' + encodedName + '.html';
+                console.log('Navigating to: ' + url);
+                // For testing, we'll just show the URL instead of navigating
+                alert('Would navigate to: ' + url);
+                // window.location.href = url; // Uncomment this line to actually navigate
+            }
+        });
+    </script>
+</body>
+</html>
